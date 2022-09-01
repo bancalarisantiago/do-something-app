@@ -1,0 +1,3 @@
+"androidNavigationBar": {
+  "visible": "immersive"
+ },
