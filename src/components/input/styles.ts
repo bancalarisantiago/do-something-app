@@ -3,18 +3,27 @@ import colors from '../../globals/colors'
 
 export default StyleSheet.create({
  container: {
-    width: '80%',
+    width: '100%',
+    height: 50,
+    margin: 10,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
+    borderColor: colors.blue,
+    borderLeftWidth: 1,
+    borderBottom: 4,
 },
 icon :{
+  position: 'absolute',
   justifyContent: 'center',
-  padding: 5,
-  backgroundColor: 'grey',
+  paddingLeft: 10,
 },
 input: {
-  paddingLeft: 10
+  width: '100%',
+  paddingLeft: 40,
+  paddingRight: 10,
+  fontSize: 15,
+  overflowX: 'auto',
 },
 
 })

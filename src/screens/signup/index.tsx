@@ -10,8 +10,22 @@ import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
 
+const inputsForm = [{
+  id: 1,
+  iconName: "person-circle-outline",
+  placeholder: "Name",
+  autoComplete: "name",
+  color: colors.blue,
+}, {
+  id: 2,
+  iconName: "person-circle-outline",
+  placeholder: "Name",
+  autoComplete: "name",
+  color: colors.blue,
+}]
 
-const Login: React.FC = () => {
+
+const SignUp: React.FC = () => {
   return (
     <View style={styles.wrapper}>
       <LinearGradient
@@ -29,8 +43,9 @@ const Login: React.FC = () => {
             />
             <Text style={styles.title}>Sign In to your account</Text>
             <View style={styles.inputs}>
-              <Input
-                iconName="mail-outline"
+              {inputsForm.map(input => <View key={input.id}><Input {...input} /></View>)}
+              {/* <Input
+                iconName="person-circle-outline"
                 placeholder="youremail@mail.com"
                 autoComplete="email"
                 iconColor={colors.blue}
@@ -41,7 +56,7 @@ const Login: React.FC = () => {
                 autoComplete="password"
                 iconColor={colors.blue}
                 secureEntry
-              />
+              /> */}
             </View>
             <View style={styles.divider}></View>
             <View style={styles.buttons}>
@@ -55,4 +70,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default SignUp

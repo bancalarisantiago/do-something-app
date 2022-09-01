@@ -1,4 +1,4 @@
-import { View, Text , TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 //Styles
 import styles from './styles';
@@ -14,24 +14,22 @@ type Props = {
 }
 
 
-const Button: React.FC<Props> = ({label, onPress, loading, style}) => {
+const Button: React.FC<Props> = ({ label, onPress, loading, style }) => {
   return (
-      <>  
-        <TouchableOpacity 
-          style={[styles.wrapper, style]} 
-          onPress={onPress} 
-          activeOpacity={loading ? 1 : 0.5}
-        >
-          <Text style={styles.label}>{label}</Text>
-          {loading && (
-            <ActivityIndicator
-              style={styles.activityIndicator}
-              size={"small"}
-              color={colors.blue}
-            />
-            )}
-        </TouchableOpacity>
-    </>
+    <TouchableOpacity
+      style={[styles.wrapper, style]}
+      onPress={onPress}
+      activeOpacity={loading ? 1 : 0.5}
+    >
+      <Text style={styles.label}>{label}</Text>
+      {loading && (
+        <ActivityIndicator
+          style={styles.activityIndicator}
+          size={"small"}
+          color={colors.blue}
+        />
+      )}
+    </TouchableOpacity>
   )
 }
 

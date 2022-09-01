@@ -3,13 +3,14 @@ import colors from '../../globals/colors'
 
 export default StyleSheet.create({
   wrapper: {
-    backgroundColor: 'red',
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   label: {
+   
+    textTransform: 'uppercase',
     textAlign: 'center',
-    textTransform: 'uppercase'
   },
   activityIndicator: {
     paddingLeft: 10,
