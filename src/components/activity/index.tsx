@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks';
 import Ionicons from '@expo/vector-icons/Ionicons';
+//Types 
+import { ActivityType, IconNames } from '../../types';
+
 //Actions
-import { addActivity, deleteActivity } from '../../redux/actions'
+import { addActivity, deleteActivity } from '../../redux/slice/activitySlice';
 
 //Component
 import Button from '../button';
@@ -12,35 +15,7 @@ import styles from './styles';
 import colors from '../../globals/colors';
 
 
-type Props = {
-  id: string;
-  activity: string;
-  type: string;
-  participants: number;
-  price: number;
-  link: string;
-  accessibility: number;
-  myList?: boolean;
-}
-
-// type IconNames = {
-//   diy: string;
-//   social: string;
-//   relaxation: string;
-//   education: string;
-//   recreational: string;
-//   busywork: string;
-//   charity: string;
-//   music: string;
-//   cooking: string;
-// }
-
-interface IconNames {
-  [key: string]: string;
-
-}
-
-const Activity: React.FC<Props> = ({
+const Activity: React.FC<ActivityType> = ({
   id,
   activity,
   type,
@@ -50,8 +25,8 @@ const Activity: React.FC<Props> = ({
   accessibility,
   myList }) => {
 
-  const dispatch = useDispatch();
-  const myActivities = useSelector(state => state?.myActivities);
+  const dispatch = useAppDispatch();
+  // const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
 
   function handleActivityTypeToIconName(type: string) {
 
@@ -69,30 +44,14 @@ const Activity: React.FC<Props> = ({
 
     if (activityType.hasOwnProperty(type)) {
       const iconName = activityType[type];
-
-      return <Ionicons name={iconName}></Ionicons>
+      return <Ionicons
+        // @ts-ignore
+        name={iconName}>
+      </Ionicons>
     } else {
       <Ionicons name="man-outline"></Ionicons>
     }
   }
-
-  function handleAddActivity() {
-    dispatch(addActivity({
-      id,
-      activity,
-      type,
-      participants,
-      price,
-      link,
-      accessibility,
-
-    }))
-  }
-
-  function handleDeleteActivity(id: string) {
-    dispatch(deleteActivity(id))
-  }
-
 
   return (
     <View style={styles.wrapper}>
@@ -104,13 +63,22 @@ const Activity: React.FC<Props> = ({
           <Text>{type}</Text>
           <Text>{participants}</Text>
           {myList ?
-            <Button onPress={() => handleDeleteActivity(id)} >
+            <Button onPress={() => dispatch(deleteActivity(id))} >
               <Ionicons name="trash-outline"></Ionicons>
             </Button>
             :
-            <Button onPress={handleAddActivity} >
+            <Button onPress={() => dispatch(addActivity({
+              id,
+              activity,
+              type,
+              participants,
+              price,
+              link,
+              accessibility,
+            }))}>
               <Ionicons name="add-outline"></Ionicons>
-            </Button>}
+            </Button>
+          }
         </View>)
         :
         <ActivityIndicator

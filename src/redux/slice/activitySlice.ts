@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../redux/slice/store';
-import axios from 'axios';
+import { fetchFilterActivityBy, fetchRandomActivity } from '../../api';
 
 const initialState = {
   randomActivity: {},
@@ -30,38 +30,41 @@ const activitiesSlice = createSlice({
     getMyActivities(state, action) {
       return { ...state };
     },
-    fetchRandomActivity(state, { payload }) {
-      return { ...state, randomActivity: payload };
-    }
+    // fetchRandomActivity(state, { payload }) {
+    //   return { ...state, randomActivity: payload };
+    // }
+  },
+  extraReducers: (builder) => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(getRandomActivity.fulfilled, (state, { payload }) => {
+      state.randomActivity = payload
+    })
+    builder.addCase(filterActivitiesBy.fulfilled, (state, { payload }) => {
+      state.randomActivity = payload
+    })
   },
 })
 
 
-export const getRandomActivity = () => async (dispatch: any) => {
-  try {
-    const { data: activity } = await axios.get('http://www.boredapi.com/api/activity')
-    return dispatch(fetchRandomActivity(activity))
-  } catch (e) {
-    console.warn(e);
-  }
-};
+export const getRandomActivity = createAsyncThunk(
+  'activities/getRandomActivity',
+  async () => {
+    const activity = fetchRandomActivity();
+    return activity
+  })
 
 export const filterActivitiesBy = createAsyncThunk(
-  'http://www.boredapi.com/api/activity',
-  async () => {
-    const response = await axios.get('http://www.boredapi.com/api/activity')
-    return response.data
+  'activities/filterActivitiesBy',
+  async (filter: any) => {
+    const activity = fetchFilterActivityBy(filter);
+    return activity
   }
 )
-
-
-
 
 export const {
   addActivity,
   deleteActivity,
   getMyActivities,
-  fetchRandomActivity
 } = activitiesSlice.actions;
 
 export default activitiesSlice.reducer;

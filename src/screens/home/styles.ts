@@ -14,6 +14,16 @@ export default StyleSheet.create({
   container: {
     height: '30%',
   },
+  dropDownsContainer: {
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  dropDown: {
+    width: '50%',
+    marginLeft: 10,
+    marginRight: 10,
+  },
   activity: {
     height: '50%'
   }

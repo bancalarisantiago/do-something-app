@@ -30,7 +30,7 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style="auto" />
         <Home />
-        {/* <MyActivities /> */}
+        <MyActivities />
         {/* <Login /> */}
         {/* <SignUp /> */}
       </View>

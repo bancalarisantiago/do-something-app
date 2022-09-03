@@ -1,21 +1,13 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-
+//Types
+import { ButtonType } from '../../types'
 //Styles
 import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
 
 
-type Props = {
-  label?: string;
-  style?: any;
-  onPress: any;
-  loading?: boolean;
-  children?: any;
-}
-
-
-const Button: React.FC<Props> = ({ children, label, onPress, loading, style }) => {
+const Button: React.FC<ButtonType> = ({ children, label, onPress, loading, style }) => {
   return (
     <TouchableOpacity
       style={[styles.wrapper, style]}
