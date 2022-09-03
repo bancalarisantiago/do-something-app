@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import colors from '../../globals/colors';
 
 export default StyleSheet.create({
- wrapper: {
+  wrapper: {
     flex: 1,
   },
   container: {
@@ -11,28 +11,38 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   content: {
-    width: '80%',
-    height: '70%',
+    width: '90%',
+    height: '80%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 10,
   },
+  shadow: {
+    shadowColor: '#52006A',
+    elevation: 20,
+    shadowOffset: {
+      width: 10,
+      height: -20,
+    },
+    shadowOpacity: 10,
+    shadowRadius: 10,
+  },
   title: {
     backgroundColor: 'transparent',
-    fontSize:20,
+    fontSize: 20,
   },
   titleApp: {
-      fontSize: 40,
-      color: colors.blue
+    fontSize: 40,
+    color: colors.blue
   },
   divider: {
     width: '30%',
     borderColor: colors.blue,
     borderWidth: 0.5,
   },
-  iconLogin : {
+  iconLogin: {
     position: 'absolute',
     top: -25,
     width: 50,
@@ -54,12 +64,12 @@ export default StyleSheet.create({
     borderColor: 'transparent',
     backgroundColor: colors.blue,
   },
-   btnRegister: {
+  btnRegister: {
     margin: 5,
     padding: 10,
     borderWidth: 1,
     borderColor: colors.blue,
     backgroundColor: 'transparent'
   },
-  
+
 })

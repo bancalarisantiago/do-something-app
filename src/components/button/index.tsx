@@ -9,12 +9,13 @@ import colors from '../../globals/colors';
 type Props = {
   label?: string;
   style?: any;
-  onPress?: () => void;
+  onPress: any;
   loading?: boolean;
+  children?: any;
 }
 
 
-const Button: React.FC<Props> = ({ label, onPress, loading, style }) => {
+const Button: React.FC<Props> = ({ children, label, onPress, loading, style }) => {
   return (
     <TouchableOpacity
       style={[styles.wrapper, style]}
@@ -22,10 +23,13 @@ const Button: React.FC<Props> = ({ label, onPress, loading, style }) => {
       activeOpacity={loading ? 1 : 0.5}
     >
       <Text style={styles.label}>{label}</Text>
+      {children && (
+        <View>{children}</View>
+      )}
       {loading && (
         <ActivityIndicator
           style={styles.activityIndicator}
-          size={"small"}
+          size="small"
           color={colors.blue}
         />
       )}

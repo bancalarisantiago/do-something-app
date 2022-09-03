@@ -7,16 +7,19 @@ import colors from '../../globals/colors';
 
 
 type Props = {
-  placeholder?: string;
+  id?: number;
+  placeholder: string;
   iconName?: any;
   iconColor?: string;
   autoComplete?: any;
   secureEntry?: boolean;
-  id?: number;
+  value: any;
+  maxLength?: number;
+  onChangeText?: any;
 }
 
 
-const Input: React.FC<Props> = ({ placeholder, autoComplete, iconName, iconColor, secureEntry, id }) => {
+const Input: React.FC<Props> = ({ placeholder, autoComplete, iconName, iconColor, secureEntry, id, onChangeText, value, maxLength }) => {
   return (
     <View style={styles.container} key={id}>
       {iconName && (
@@ -29,6 +32,10 @@ const Input: React.FC<Props> = ({ placeholder, autoComplete, iconName, iconColor
         placeholder={placeholder}
         autoComplete={autoComplete}
         secureTextEntry={secureEntry}
+        value={value}
+        onChangeText={onChangeText}
+        maxLength={maxLength}
+        keyboardType={placeholder === 'age' ? 'numeric' : 'default'}
       />
     </View>
   )

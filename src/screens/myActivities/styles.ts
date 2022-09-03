@@ -11,10 +11,4 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  container: {
-    height: '30%',
-  },
-  activity: {
-    height: '50%'
-  }
 })

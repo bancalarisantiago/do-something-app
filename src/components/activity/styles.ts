@@ -4,17 +4,14 @@ import colors from '../../globals/colors'
 
 export default StyleSheet.create({
   wrapper: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    width: '80%',
+    height: '20%',
+    backgroundColor: 'yellow',
+    flexDirection: 'row'
   },
   container: {
-    height: '30%',
-  },
-  activity: {
-    height: '50%'
+
   }
+
+
 })
