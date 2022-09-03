@@ -1,8 +1,8 @@
 import { View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
 //Actions
-import { getMyActivities } from '../../redux/actions'
+import { getMyActivities } from '../../redux/slice/activitiesSlice';
 
 //Components 
 import Header from '../../components/header';
@@ -15,15 +15,15 @@ import styles from './styles';
 
 const MyActivities: React.FC = () => {
 
-  const dispatch = useDispatch();
-  const myActivities = useSelector(state => state?.myActivities);
+  const dispatch = useAppDispatch();
+  const myActivities = useAppSelector(state => state?.myActivities);
 
-  function getActivities() {
-    dispatch(getMyActivities())
+  // function getActivities() {
+  //   dispatch(getMyActivities())
 
-  }
+  // }
   useEffect(() => {
-    getActivities();
+    dispatch(getMyActivities())
   }, [])
 
 

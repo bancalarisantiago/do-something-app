@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from "react-redux";
-import store from './src/redux/store'
+import store from './src/redux/slice/store';
 //Components
 import Login from './src/screens/login'
 import SignUp from './src/screens/signup'
@@ -30,7 +30,7 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style="auto" />
         <Home />
-        <MyActivities />
+        {/* <MyActivities /> */}
         {/* <Login /> */}
         {/* <SignUp /> */}
       </View>

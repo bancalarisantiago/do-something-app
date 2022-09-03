@@ -1,5 +1,4 @@
 //Constants actions
-
 import {
   ADD_ACTIVITY,
   DELETE_ACTIVITY,
@@ -11,10 +10,7 @@ import {
 
 import axios from 'axios';
 
-
-
 export const getRandomActivity = () => async (dispatch: any) => {
-
   try {
     const { data: activity } = await axios.get('http://www.boredapi.com/api/activity')
     return dispatch({
@@ -44,7 +40,6 @@ export const filterActivitiesBy = (filter: string, value: string | number) => as
   console.log(filter, value)
   try {
     const { data: activity } = await axios.get(`http://www.boredapi.com/api/activity?${filter}=${value}`)
-    console.log("filter", activity)
     return dispatch({
       type: FILTER_ACTIVITIES_BY,
       payload: activity

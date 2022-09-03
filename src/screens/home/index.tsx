@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
 import DropDownPicker from 'react-native-dropdown-picker';
 //Actions
-import { getRandomActivity, filterActivitiesBy } from '../../redux/actions'
+import { getRandomActivity, filterActivitiesBy } from '../../redux/slice/activitySlice';
 
 //Components 
 import Header from '../../components/header';
@@ -16,10 +16,10 @@ import styles from './styles';
 
 const Home = () => {
 
-  const dispatch = useDispatch();
-  const randomActivity = useSelector(state => state?.randomActivity);
-  const myActivities = useSelector(state => state?.myActivities)
-
+  const dispatch = useAppDispatch();
+  const randomActivity = useAppSelector(({ activity: randomActivity }) => randomActivity.randomActivity)
+  const myActivities = useAppSelector(({ activity: myActivities }) => myActivities)
+  console.log(randomActivity)
   // const [randomActivity, setRandomActivity] = useState({
   //   key: "",
   //   activity: "",
@@ -54,17 +54,17 @@ const Home = () => {
 
 
 
-  function getActivity() {
-    dispatch(getRandomActivity())
-    // setRandomActivity(stateRandomActivity)
-  }
+  // function getActivity() {
+  //   dispatch(getRandomActivity())
+  //   setRandomActivity(stateRandomActivity)
+  // }
   function handleFilterBy(filter: string, value: string | number) {
     dispatch(filterActivitiesBy(filter, value))
   }
 
 
   useEffect(() => {
-    getActivity();
+    dispatch(getRandomActivity())
   }, [value])
 
 
@@ -86,7 +86,7 @@ const Home = () => {
         />)
       }
       <View>
-        <Button label="refresh activity" onPress={getActivity} />
+        <Button label="refresh activity" onPress={() => dispatch(getRandomActivity())} />
       </View>
       <Button label="filter by type" onPress={() => handleFilterBy("type", "recreational")}></Button>
       <Button label="filter by participants" onPress={() => handleFilterBy("participants", 1)}></Button>

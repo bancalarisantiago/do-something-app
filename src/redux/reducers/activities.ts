@@ -1,15 +1,15 @@
 import * as ACT from '../actions/constants';
 
 const initialState = {
-  randomActivity: {},
-  myActivities: [],
+  // randomActivity: {},
+  // myActivities: [],
 };
 
 const activitiesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ACT.ADD_ACTIVITY:
-      const repeteadActivity = state.myActivities.find((activity: any) => activity.id === payload.id);
-      if (!repeteadActivity || state.myActivities.length === 0) {
+      const repeatedActivity = state.myActivities.find((activity: any) => activity.id === payload.id);
+      if (!repeateActivity || state.myActivities.length === 0) {
         return { ...state, myActivities: [...state.myActivities, payload] };
       }
       return { ...state };
