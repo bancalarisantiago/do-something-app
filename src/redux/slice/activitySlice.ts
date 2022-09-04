@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../redux/slice/store';
-import { fetchFilterActivityBy, fetchRandomActivity } from '../../api';
+import { fetchActivityByFilter, fetchRandomActivity } from '../../api';
 
 const initialState = {
   randomActivity: {},
@@ -56,7 +56,7 @@ export const getRandomActivity = createAsyncThunk(
 export const filterActivitiesBy = createAsyncThunk(
   'activities/filterActivitiesBy',
   async (filter: any) => {
-    const activity = fetchFilterActivityBy(filter);
+    const activity = fetchActivityByFilter(filter);
     return activity
   }
 )

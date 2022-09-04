@@ -36,7 +36,7 @@ const Activity: React.FC<ActivityType> = ({
       relaxation: "heart-outline",
       education: "library-outline",
       recreational: "body-outline",
-      busywork: "",
+      busywork: "fitness-outline",
       charity: "heart-circle-outline",
       music: "musical-notes-outline",
       cooking: "restaurant-outline"
@@ -46,39 +46,49 @@ const Activity: React.FC<ActivityType> = ({
       const iconName = activityType[type];
       return <Ionicons
         // @ts-ignore
-        name={iconName}>
-      </Ionicons>
+        name={iconName} size={25} />
     } else {
-      <Ionicons name="man-outline"></Ionicons>
+      <Ionicons name="man-outline" />
     }
   }
 
-  return (
-    <View style={styles.wrapper}>
+  function capitalizeFirstLetter(str: string) {
+    return str.charAt(0).toUpperCase() + str.substring(1)
+  }
 
+  return (
+    <View style={styles.container}>
       {id ? (
-        <View key={id}>
-          {handleActivityTypeToIconName(type)}
-          <Text>{activity}</Text>
-          <Text>{type}</Text>
-          <Text>{participants}</Text>
-          {myList ?
-            <Button onPress={() => dispatch(deleteActivity(id))} >
-              <Ionicons name="trash-outline"></Ionicons>
-            </Button>
-            :
-            <Button onPress={() => dispatch(addActivity({
-              id,
-              activity,
-              type,
-              participants,
-              price,
-              link,
-              accessibility,
-            }))}>
-              <Ionicons name="add-outline"></Ionicons>
-            </Button>
-          }
+        <View key={id} style={styles.content}>
+          <View style={styles.icon}>
+            {handleActivityTypeToIconName(type)}
+            <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
+          </View>
+
+          <View style={styles.description}>
+            <Text style={styles.type}>{activity}</Text>
+            <Text>Participants: {participants}</Text>
+          </View>
+          <View style={styles.btnActivity}>
+            {myList ?
+              <Button onPress={() => dispatch(deleteActivity(id))} >
+                <Ionicons name="trash-outline" size={25} />
+              </Button>
+              :
+              <Button onPress={() => dispatch(addActivity({
+                id,
+                activity,
+                type,
+                participants,
+                price,
+                link,
+                accessibility,
+              }))}>
+                <Ionicons name="add-outline" size={30}></Ionicons>
+              </Button>
+            }
+          </View>
+
         </View>)
         :
         <ActivityIndicator

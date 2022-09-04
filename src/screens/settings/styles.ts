@@ -5,7 +5,8 @@ import colors from '../../globals/colors'
 export default StyleSheet.create({
   wrapper: {
     width: '100%',
-    height: '100%',
+    height: '50%',
+    justifyContent: 'center',
     alignItems: 'center',
 
   },

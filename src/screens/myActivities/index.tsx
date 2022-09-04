@@ -16,6 +16,7 @@ import Button from '../../components/button';
 import styles from './styles';
 
 const MyActivities: React.FC = () => {
+
   const dispatch = useAppDispatch();
   const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
 
@@ -32,9 +33,7 @@ const MyActivities: React.FC = () => {
       <Text>MY ACTIVITIES</Text>
       {myActivities && (
         myActivities.map((activity: ActivityType) =>
-          <View key={activity.id}>
-            <Activity myList={true} {...activity} />
-          </View>
+          <Activity myList={true} {...activity} />
         )
       )}
     </View>

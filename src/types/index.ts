@@ -21,3 +21,5 @@ export interface IconNames {
   [key: string]: string;
 
 }
+
+// export type Props = NativeStackScreenProps<RootStackParamList, 'Profile', 'MyStack'>;

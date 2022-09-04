@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
+import Navigation from './src/navigation';
 import store from './src/redux/slice/store';
 //Components
 import Login from './src/screens/login'
@@ -25,15 +26,18 @@ export default function App() {
   //   );
   // }
 
+  // <Home />
+  //       <MyActivities />
+  //       <Login /> 
+  //       <SignUp />
+
   return (
     <Provider store={store}>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <Home />
-        <MyActivities />
-        {/* <Login /> */}
-        {/* <SignUp /> */}
-      </View>
+      <Navigation>
+        <View style={styles.container}>
+          <StatusBar style="auto" />
+        </View>
+      </Navigation>
     </Provider>
   );
 }
