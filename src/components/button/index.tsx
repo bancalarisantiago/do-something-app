@@ -1,20 +1,13 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-
+//Types
+import { ButtonType } from '../../types'
 //Styles
 import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
 
 
-type Props = {
-  label?: string;
-  style?: any;
-  onPress?: () => void;
-  loading?: boolean;
-}
-
-
-const Button: React.FC<Props> = ({ label, onPress, loading, style }) => {
+const Button: React.FC<ButtonType> = ({ children, label, onPress, loading, style }) => {
   return (
     <TouchableOpacity
       style={[styles.wrapper, style]}
@@ -22,10 +15,13 @@ const Button: React.FC<Props> = ({ label, onPress, loading, style }) => {
       activeOpacity={loading ? 1 : 0.5}
     >
       <Text style={styles.label}>{label}</Text>
+      {children && (
+        <View>{children}</View>
+      )}
       {loading && (
         <ActivityIndicator
           style={styles.activityIndicator}
-          size={"small"}
+          size="small"
           color={colors.blue}
         />
       )}

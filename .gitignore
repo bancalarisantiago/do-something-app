@@ -11,6 +11,6 @@ npm-debug.*
 web-build/
 .vscode
 .expo-shared
-
+yarn.lock
 # macOS
 .DS_Store
