@@ -12,6 +12,7 @@ export default function useCachedResources(): boolean {
       try {
         SplashScreen.preventAutoHideAsync();
         const [fontsLoaded] = useFonts(customFonts);
+        console.log(fontsLoaded)
       } catch (e) {
         console.log(e);
       } finally {

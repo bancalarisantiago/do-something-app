@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -11,13 +13,22 @@ import styles from './styles';
 import colors from '../../globals/colors';
 
 
-const Login: React.FC = () => {
+const LogIn: React.FC = () => {
+
+  const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+
+
+  function handleLoginCredentials() {
+
+  }
+
   return (
     <View style={styles.wrapper}>
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
       >
-
         <View style={styles.container}>
           <View >
             <Text style={styles.titleApp} >DO SOMETHING!</Text>
@@ -34,19 +45,21 @@ const Login: React.FC = () => {
                 placeholder="youremail@mail.com"
                 autoComplete="email"
                 iconColor={colors.blue}
+                value={email}
               />
               <Input
                 iconName="lock-closed-outline"
                 placeholder="password"
                 autoComplete="password"
                 iconColor={colors.blue}
+                value={password}
                 secureEntry
               />
             </View>
             <View style={styles.divider}></View>
             <View style={styles.buttons}>
-              <Button label="login" style={styles.btnLogin} ></Button>
-              <Button label="sign up" style={styles.btnRegister} ></Button>
+              <Button label="login" style={styles.btnLogin} onPress={handleLoginCredentials}></Button>
+              <Button label="sign up" style={styles.btnRegister} onPress={() => navigation.navigate('SignUp')}></Button>
             </View>
           </View>
         </View>
@@ -55,4 +68,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default LogIn

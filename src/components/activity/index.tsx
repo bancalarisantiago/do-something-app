@@ -57,45 +57,47 @@ const Activity: React.FC<ActivityType> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <>
       {id ? (
-        <View key={id} style={styles.content}>
-          <View style={styles.icon}>
-            {handleActivityTypeToIconName(type)}
-            <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
-          </View>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <View style={styles.icon}>
+              {handleActivityTypeToIconName(type)}
+              <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
+            </View>
 
-          <View style={styles.description}>
-            <Text style={styles.type}>{activity}</Text>
-            <Text>Participants: {participants}</Text>
-          </View>
-          <View style={styles.btnActivity}>
-            {myList ?
-              <Button onPress={() => dispatch(deleteActivity(id))} >
-                <Ionicons name="trash-outline" size={25} />
-              </Button>
-              :
-              <Button onPress={() => dispatch(addActivity({
-                id,
-                activity,
-                type,
-                participants,
-                price,
-                link,
-                accessibility,
-              }))}>
-                <Ionicons name="add-outline" size={30}></Ionicons>
-              </Button>
-            }
-          </View>
+            <View style={styles.description}>
+              <Text style={styles.type}>{activity}</Text>
+              <Text>Participants: {participants}</Text>
+            </View>
+            <View style={styles.btnActivity}>
+              {myList ?
+                <Button onPress={() => dispatch(deleteActivity(id))} >
+                  <Ionicons name="trash-outline" size={25} />
+                </Button>
+                :
+                <Button onPress={() => dispatch(addActivity({
+                  id,
+                  activity,
+                  type,
+                  participants,
+                  price,
+                  link,
+                  accessibility,
+                }))}>
+                  <Ionicons name="add-outline" size={30}></Ionicons>
+                </Button>
+              }
+            </View>
 
+          </View>
         </View>)
         :
         <ActivityIndicator
           size="small"
           color={colors.blue}
         />}
-    </View>
+    </>
   )
 }
 

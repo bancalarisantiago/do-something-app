@@ -130,6 +130,7 @@ const Home = () => {
         <Activity
           // @ts-ignore
           id={randomActivity.key}
+          _key={1}
           // @ts-ignore
           activity={randomActivity.activity}
           // @ts-ignore

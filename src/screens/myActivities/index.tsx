@@ -30,12 +30,16 @@ const MyActivities: React.FC = () => {
 
   return (
     <View style={styles.wrapper}>
-      <Text>MY ACTIVITIES</Text>
-      {myActivities && (
-        myActivities.map((activity: ActivityType) =>
-          <Activity myList={true} {...activity} />
-        )
-      )}
+      {/* <View>
+        <Text>MY ACTIVITIES</Text>
+      </View> */}
+      <View style={styles.activityBox}>
+        {myActivities && (
+          myActivities.map((activity: ActivityType) =>
+            <Activity myList={true} {...activity} />
+          )
+        )}
+      </View>
     </View>
   )
 }

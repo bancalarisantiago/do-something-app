@@ -6,7 +6,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //Components
 import Home from '../screens/home';
 import MyActivities from '../screens/myActivities';
-import Settings from '../screens/settings'
+import Settings from '../screens/settings';
+import LogIn from '../screens/logIn';
+import SignUp from '../screens/signUp';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
@@ -21,7 +23,7 @@ const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Home">
       <Tab.Screen name="Home" component={Home} options={{
         title: 'HOME',
         headerStyle: {
@@ -63,54 +65,22 @@ function TabNavigator() {
   );
 }
 
+function RootNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="LogIn">
+      <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false, animation: 'none' }} />
+      <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false, animation: 'none' }} />
+    </Stack.Navigator>
+  );
+};
 
+const isSignedIn = false;
 export default function Navigation(props: NavigationProps) {
   return (
     <NavigationContainer >
-      <TabNavigator />
+      {isSignedIn ? <TabNavigator /> : <RootNavigator />}
     </NavigationContainer>
   );
 };
 
 
-// function RootNavigator() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name="Root" component={TabNavigator} options={{ headerShown: false }} />
-//       <Stack.Screen name="Home" component={Home} options={{
-//         title: 'HOME',
-//         headerStyle: {
-//           backgroundColor: '#f4511e',
-//         },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: {
-//           fontWeight: '300',
-//         },
-//         headerTitle: (props) => <><Ionicons name="home-outline" size={25} /><Text>HOME</Text></>,
-//         headerRight: () => <><Ionicons name="settings-outline" size={25} /></>,
-//       }} />
-//       <Stack.Screen name="My Activities" component={MyActivities} options={{
-//         title: 'ACTIVITIES',
-//         headerStyle: {
-//           backgroundColor: '#f4511e',
-//         },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: {
-//           fontWeight: '300',
-//         },
-//       }} />
-//       <Stack.Screen name="Settings" component={Settings} options={{
-//         title: 'Settings',
-//         headerStyle: {
-//           backgroundColor: '#f4511e',
-//         },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: {
-//           fontWeight: '300',
-//         },
-//         headerTitle: (props) => <><Ionicons name="settings-outline" size={25} /><Text>HOME</Text></>,
-
-//       }} />
-//     </Stack.Navigator>
-//   );
-// };
