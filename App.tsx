@@ -17,8 +17,6 @@ import Navigation from './src/navigation';
 import customFonts from './src/globals/fonts';
 import colors from './src/globals/colors';
 
-
-
 const App: React.FC = () => {
   const [isAuthUser, setIsAuthUser] = useState(false);
   const [loadingCache, setLoadingCache] = useState(true);
