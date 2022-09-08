@@ -23,7 +23,7 @@ export default StyleSheet.create({
   title: {
     backgroundColor: 'transparent',
     fontSize: 20,
-    fontFamily: 'Roboto-Regular',
+    // fontFamily: 'Roboto-Regular',
   },
   subtitle: {
     fontSize: 15,
@@ -55,7 +55,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     borderColor: 'transparent',
     backgroundColor: colors.turquoise,
-    fontFamily: 'Roboto-Bold',
+    // fontFamily: 'Roboto-Bold',
   },
   btnRegister: {
     margin: 5,
@@ -64,7 +64,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.turquoise,
     backgroundColor: 'transparent',
-    fontFamily: 'Roboto-Bold',
+    // fontFamily: 'Roboto-Bold',
   },
 
 })

@@ -1,6 +1,6 @@
 //Lib
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,23 +13,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import AuthProvider from './src/context/AuthProvider';
 import Navigation from './src/navigation';
 
-//Actions
-import { getUserFromStore } from './src/redux/slices/userSlice';
-//Hooks
-import useCachedResources from './src/hooks/useCachedResources'
 //Globals
 import customFonts from './src/globals/fonts';
+import colors from './src/globals/colors';
 
-
-// const LoadingMarkup = () => (
-//   <View
-//     style={{
-//       flex: 1,
-//       justifyContent: 'center',
-//     }}>
-//     <ActivityIndicator size="large" color="#0000ff" />
-//   </View>
-// );
 
 
 const App: React.FC = () => {
@@ -59,18 +46,13 @@ const App: React.FC = () => {
     setLoading(false);
   }
 
-  async function fetchFromStore() {
-    const user = store.getState()
-    console.log("userapp", user);
-  }
   useEffect(() => {
     LoadCacheResources();
     getUserTokenForAuth();
-    fetchFromStore();
   }, [loading, loadingCache])
 
   if (loading && loadingCache) {
-    return <View><Text>QUE ONDAAAAAA</Text></View>
+    return <View><ActivityIndicator size="large" color={colors.blue} /></View>
   }
 
   return (
