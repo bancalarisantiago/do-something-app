@@ -25,7 +25,7 @@ export default StyleSheet.create({
     elevation: 5,
   },
   button: {
-    familyFont: 'Roboto-Black',
+    // familyFont: 'Roboto-Black',
     borderRadius: 10,
     padding: 10,
     elevation: 2,

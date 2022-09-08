@@ -31,7 +31,7 @@ export default StyleSheet.create({
     fontSize: 20,
   },
   titleApp: {
-    familyFont: 'Roboto-Black',
+    // familyFont: 'Roboto-Black',
     fontSize: 40,
     color: colors.blue
   },
