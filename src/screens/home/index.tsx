@@ -1,29 +1,30 @@
-import { View, Text } from 'react-native';
-import { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
 import DropDownPicker from 'react-native-dropdown-picker';
 //Types
-import { ActivityType } from '../../types'
+import { ActivityType, FilterType } from '../../types'
 
 //Actions
-import { getRandomActivity, filterActivitiesBy } from '../../redux/slice/activitySlice';
+import { getRandomActivity, filterActivitiesBy, getMyActivities } from '../../redux/slices/activitySlice';
 
 //Components 
-import Header from '../../components/header';
 import Activity from '../../components/activity'
 import Button from '../../components/button';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 //Styles
 import styles from './styles';
 
+
 const Home = () => {
 
-  const navigation = useNavigation();
+  const [loading, setLoading] = useState(true)
 
   const dispatch = useAppDispatch();
   const randomActivity = useAppSelector(({ activity: { randomActivity } }) => randomActivity)
   const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
+  const userSession = useAppSelector(({ user: { user } }) => user);
 
 
   const [openType, setOpenType] = useState(false);
@@ -33,7 +34,8 @@ const Home = () => {
   const [valueFilter, setValueFilter] = useState(null);
   const [valueFilterOptions, setValueFilterOptions] = useState(null);
 
-  const [itemsFilter, setItemFilter] = useState<any>([
+
+  const [itemsFilter, setItemFilter] = useState([
     { label: 'None', value: null },
     { label: 'Type', value: 'type' },
     { label: 'Participants', value: 'participants' }
@@ -51,26 +53,28 @@ const Home = () => {
   { label: 'Cooking', value: 'cooking' },
   ]
 
-  function generateNumberPicklistOptions(number: number) {
-    type Option = {
+  function generateNumberPicklistOptions(num: number) {
+
+    type FilterOptionsType = {
       label: string;
-      value: null | number;
+      value: string | number | null;
     }
+
     let i = 1;
-    let array: Option[] = [{ label: 'None', value: null }]
-    while (i < number) {
+    let array: FilterOptionsType[] = [{ label: 'None', value: null }]
+    while (i < num) {
       array.push({ label: i.toString(), value: i });
       i++;
     }
     return array;
   }
 
-  const [itemsFilterValue, setItemFilterValue] = useState<any>([typeOptionsPicklist, generateNumberPicklistOptions(9)]);
+  const [itemsFilterValue, setItemFilterValue] = useState([typeOptionsPicklist, generateNumberPicklistOptions(9)]);
 
   function handleResfreshActivity() {
     if (valueFilter && valueFilterOptions) {
       const filter = {
-        filterOpt: valueFilter,
+        type: valueFilter,
         value: valueFilterOptions
       };
       dispatch(filterActivitiesBy(filter));
@@ -80,19 +84,30 @@ const Home = () => {
   };
 
   useEffect(() => {
-    dispatch(getRandomActivity())
-  }, []);
+
+    if (loading) {
+      dispatch(getRandomActivity());
+      dispatch(getMyActivities());
+      setLoading(false);
+    }
+
+  }, [loading]);
+
+
+  if (loading) {
+    return <View><ActivityIndicator></ActivityIndicator></View>
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Welcome USERNAME</Text>
+        <Text style={styles.title}>Welcome {userSession?.firstName}</Text>
+        <Text style={styles.title}>Age: {userSession?.age}</Text>
         <Text style={styles.subtitle}>It's time to do something</Text>
         <Text style={styles.subtitle}>Tap the button and find a new activity</Text>
-        <Text>20</Text>
       </View>
       <View>
-        <Button style={styles.btnRefresh} label="refresh" onPress={handleResfreshActivity} ><Ionicons name="refresh-outline" /></Button>
+        <Button style={styles.btnRefresh} label="refresh" onPress={() => handleResfreshActivity()} ><Ionicons name="refresh-outline" /></Button>
       </View>
       <View style={styles.dropDownsContainer}>
         <View style={styles.dropDown}>
@@ -121,36 +136,36 @@ const Home = () => {
           </View>
         )}
       </View>
-      {/* <View style={styles.tableInfo}>
-        <Text>Description</Text>
-        <Text>Type</Text>
-        <Text>Participants</Text>
-      </View> */}
       {randomActivity && (
-        <Activity
-          // @ts-ignore
-          id={randomActivity.key}
-          // @ts-ignore
-          activity={randomActivity.activity}
-          // @ts-ignore
-          type={randomActivity.type}
-          // @ts-ignore
-          participants={randomActivity.participants}
-          // @ts-ignore
-          price={randomActivity.price}
-          // @ts-ignore
-          link={randomActivity.link}
-          // @ts-ignore
-          accessibility={randomActivity.accessibility}
-        />)
+        <View >
+          <Activity
+            id={randomActivity.key}
+            activity={randomActivity.activity}
+            type={randomActivity.type}
+            participants={randomActivity.participants}
+            price={randomActivity.price}
+            link={randomActivity.link}
+            accessibility={randomActivity.accessibility}
+          />
+        </View>
+      )
       }
       <View style={styles.addedContainer}>
-        <Text>Recently Added</Text>
-        {myActivities.length > 0 && (
-          myActivities.slice(myActivities.length - 2, myActivities.length).reverse().map((activity: any) =>
-            <Activity myList={true} {...activity} />
+        <View style={styles.divider}>
+          <View style={styles.leftLine}></View>
+          <View>
+            <Text style={styles.titleRecently}>Recently Added</Text>
+          </View>
+          <View style={styles.rightLine}></View>
+        </View>
+        {myActivities.length > 0 ? (
+          myActivities.slice(myActivities.length - 2, myActivities.length).reverse().map((activity: ActivityType, index: number) =>
+            <View key={`RA-${activity.id}`}>
+              <Activity myList={true} {...activity} />
+            </View>
           )
-        )}
+        ) : <Text>ADD YOUR FIRST ACTIVITY</Text>
+        }
       </View>
     </View>
   )

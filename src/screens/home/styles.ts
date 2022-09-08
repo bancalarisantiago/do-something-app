@@ -7,21 +7,24 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: '#ecf0f1',
   },
   titleContainer: {
-    width: '50%',
-    height: '20%',
+    width: '70%',
+    alignItems: 'center',
+    margin: 5,
   },
   title: {
     fontSize: 20,
     color: colors.blue
   },
   btnRefresh: {
-    width: '50%',
+    width: '40%',
+    margin: 15,
     padding: 10,
-    backgroundColor: 'red'
+    justifyContent: 'space-around',
+    backgroundColor: colors.lightBlue,
+    borderRadius: 10,
   },
   subtitle: {},
   dropDownsContainer: {
@@ -34,14 +37,42 @@ export default StyleSheet.create({
     width: '50%',
     marginLeft: 10,
     marginRight: 10,
-  },
-  tableInfo: {},
-  activity: {
 
   },
-  addedContainer: {
+  tableInfo: {},
+  activityBox: {
+    width: '100%',
     height: '100%',
+    alignItems: 'center',
+    backgroundColor: 'yellow'
+  },
+  addedContainer: {
+    height: '10%',
     width: '100%',
     alignItems: 'center'
+  },
+  titleRecently: {
+    margin: 10,
+    fontSize: 20,
+    fontWeight: '500',
+    justifyContent: 'center'
+  },
+  divider: {
+    width: '100%',
+    margin: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  leftLine: {
+    width: '25%',
+    borderWidth: 1,
+    borderColor: colors.lightBlue,
+  },
+  rightLine: {
+    width: '25%',
+    borderWidth: 1,
+    borderColor: colors.lightBlue,
+
   }
 })

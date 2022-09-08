@@ -1,3 +1,4 @@
+//Lib
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 //Types
 import { ButtonType } from '../../types'
@@ -7,12 +8,19 @@ import styles from './styles';
 import colors from '../../globals/colors';
 
 
-const Button: React.FC<ButtonType> = ({ children, label, onPress, loading, style }) => {
+const Button: React.FC<ButtonType> = ({
+  children,
+  label,
+  onPress,
+  loading,
+  style,
+  disabled }) => {
   return (
     <TouchableOpacity
-      style={[styles.wrapper, style]}
+      style={disabled ? [styles.wrapper, style, styles.btnDisabled] : [styles.wrapper, style]}
       onPress={onPress}
       activeOpacity={loading ? 1 : 0.5}
+      disabled={disabled ?? false}
     >
       <Text style={styles.label}>{label}</Text>
       {children && (

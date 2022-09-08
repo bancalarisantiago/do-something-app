@@ -2,37 +2,39 @@ import { StyleSheet } from 'react-native';
 import colors from '../../globals/colors';
 
 export default StyleSheet.create({
- wrapper: {
-    flex: 1,
-  },
   container: {
+    width: '100%',
     height: '100%',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  content: {
+  wrapperContent: {
     width: '80%',
-    height: '70%',
+    height: '65%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
-    padding: 10,
     borderRadius: 10,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     backgroundColor: 'transparent',
-    fontSize:20,
+    fontSize: 20,
+    fontFamily: 'Roboto-Regular',
   },
-  titleApp: {
-      fontSize: 40,
-      color: colors.blue
+  subtitle: {
+    fontSize: 15,
   },
+
   divider: {
     width: '30%',
-    borderColor: colors.blue,
+    borderColor: colors.turquoise,
     borderWidth: 0.5,
   },
-  iconLogin : {
+  iconLogin: {
     position: 'absolute',
     top: -25,
     width: 50,
@@ -41,7 +43,6 @@ export default StyleSheet.create({
   },
   inputs: {
     width: "80%",
-    alignItems: 'center',
   },
   buttons: {
     width: "80%",
@@ -50,16 +51,20 @@ export default StyleSheet.create({
   btnLogin: {
     margin: 5,
     padding: 10,
-    borderWidth: 1,
+    borderWidth: 1.5,
+    borderRadius: 10,
     borderColor: 'transparent',
-    backgroundColor: colors.blue,
+    backgroundColor: colors.turquoise,
+    fontFamily: 'Roboto-Bold',
   },
-   btnRegister: {
+  btnRegister: {
     margin: 5,
     padding: 10,
     borderWidth: 1,
-    borderColor: colors.blue,
-    backgroundColor: 'transparent'
+    borderRadius: 10,
+    borderColor: colors.turquoise,
+    backgroundColor: 'transparent',
+    fontFamily: 'Roboto-Bold',
   },
-  
+
 })

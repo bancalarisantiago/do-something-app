@@ -3,12 +3,15 @@ import colors from '../../globals/colors'
 
 export default StyleSheet.create({
   wrapper: {
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  btnDisabled: {
+    backgroundColor: 'grey',
+    opacity: 0.2,
   },
   label: {
-   
     textTransform: 'uppercase',
     textAlign: 'center',
   },

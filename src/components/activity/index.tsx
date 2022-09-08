@@ -1,13 +1,15 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks';
+//Lib
+import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
+import { useAppDispatch } from '../../hooks/useReduxHooks';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 //Types 
 import { ActivityType, IconNames } from '../../types';
 
 //Actions
-import { addActivity, deleteActivity } from '../../redux/slice/activitySlice';
+import { addActivity, deleteActivity } from '../../redux/slices/activitySlice';
 
-//Component
+//Components
 import Button from '../button';
 //Styles
 import styles from './styles';
@@ -26,7 +28,6 @@ const Activity: React.FC<ActivityType> = ({
   myList }) => {
 
   const dispatch = useAppDispatch();
-  // const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
 
   function handleActivityTypeToIconName(type: string) {
 
@@ -57,17 +58,17 @@ const Activity: React.FC<ActivityType> = ({
   }
 
   return (
-    <View style={styles.container}>
-      {id ? (
-        <View key={id} style={styles.content}>
+
+    <SafeAreaView >
+      {id !== undefined ? (
+        <View style={styles.container} key={id}>
           <View style={styles.icon}>
             {handleActivityTypeToIconName(type)}
             <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
           </View>
-
           <View style={styles.description}>
             <Text style={styles.type}>{activity}</Text>
-            <Text>Participants: {participants}</Text>
+            <Text>Participants: <Text style={styles.number}>{participants}</Text></Text>
           </View>
           <View style={styles.btnActivity}>
             {myList ?
@@ -88,14 +89,15 @@ const Activity: React.FC<ActivityType> = ({
               </Button>
             }
           </View>
-
-        </View>)
-        :
-        <ActivityIndicator
-          size="small"
-          color={colors.blue}
-        />}
-    </View>
+        </View>
+      ) : (
+        <View style={styles.container} key={id}>
+          <ActivityIndicator />
+          <Text>NO RUSULTS</Text>
+          <Text>Try other filter values</Text>
+        </View>
+      )}
+    </SafeAreaView>
   )
 }
 
