@@ -2,25 +2,22 @@ import { StyleSheet } from 'react-native';
 import colors from '../../globals/colors';
 
 export default StyleSheet.create({
-  wrapper: {
-    flex: 1,
-  },
   container: {
+    width: '100%',
     height: '100%',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  content: {
-    width: '90%',
-    height: '80%',
+  wrapperContent: {
+    width: '80%',
+    height: '75%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
-    padding: 10,
     borderRadius: 10,
   },
   shadow: {
-    shadowColor: '#52006A',
+    shadowColor: '#000',
     elevation: 20,
     shadowOffset: {
       width: 10,
@@ -34,6 +31,7 @@ export default StyleSheet.create({
     fontSize: 20,
   },
   titleApp: {
+    familyFont: 'Roboto-Black',
     fontSize: 40,
     color: colors.blue
   },
@@ -61,14 +59,16 @@ export default StyleSheet.create({
     margin: 5,
     padding: 10,
     borderWidth: 1,
+    borderRadius: 10,
     borderColor: 'transparent',
-    backgroundColor: colors.blue,
+    backgroundColor: colors.turquoise,
   },
   btnRegister: {
     margin: 5,
     padding: 10,
     borderWidth: 1,
-    borderColor: colors.blue,
+    borderRadius: 10,
+    borderColor: colors.turquoise,
     backgroundColor: 'transparent'
   },
 

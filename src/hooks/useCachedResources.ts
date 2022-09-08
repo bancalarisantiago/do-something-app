@@ -1,25 +1,28 @@
-import { useFonts } from 'expo-font';
+//Lib
+import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+
+//Globals
 import customFonts from '../globals/fonts'
 
-export default function useCachedResources(): boolean {
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
+export default function useCachedResources() {
+  const [isLoadingComplete, setLoadingComplete] = useState<boolean>(false);
 
-
-  useEffect(() => {
-    async function loadResourcesAndDataAsync() {
-      try {
-        SplashScreen.preventAutoHideAsync();
-        const [fontsLoaded] = useFonts(customFonts);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setLoadingComplete(true);
-        SplashScreen.hideAsync();
-      }
+  async function loadResourcesAndDataAsync() {
+    try {
+      SplashScreen.preventAutoHideAsync();
+      await Font.loadAsync(customFonts);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoadingComplete(true);
+      SplashScreen.hideAsync();
     }
+    return isLoadingComplete;
+  }
+  useEffect(() => {
     loadResourcesAndDataAsync();
   }, []);
-  return isLoadingComplete;
+
 }
