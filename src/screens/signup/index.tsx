@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Text, View, Image, Alert } from 'react-native';
+import { Text, View, Image, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
+
+//Types
+import { UserType } from '../../types';
+
 //Provider
 import { useAuth } from '../../context/AuthProvider';
 
 //Storage
-import {
-  removeAllAsyncData
-} from '../../storage'
+import { removeAllAsyncData } from '../../storage'
 import { signUp, deleteAccount } from '../../redux/slices/userSlice';
+import { getRandomActivity } from '../../redux/slices/activitySlice';
 
 //Components
 import Button from '../../components/button';
@@ -24,6 +27,8 @@ import colors from '../../globals/colors';
 //Styles
 import styles from './styles';
 
+//Assets
+import icon from '../../../assets/icon.png';
 
 const SignUp: React.FC = () => {
 
@@ -45,31 +50,23 @@ const SignUp: React.FC = () => {
     reset, formState: { errors, isValid, isSubmitSuccessful }
   } = useForm({ mode: 'onChange' });
 
-
   useEffect(() => {
 
   }, [errors]);
-
-  type User = {
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    age: string;
-  }
 
   const handleCreateAccount = () => {
     setModalVisible(false)
     setIsAuth(true);
   }
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: UserType) => {
     //const validateUser = await getAsyncStorageItem('user')
 
     if (false) {
       console.log('usuario ya registarado')
       setError('email', { type: 'custom', message: 'Email already register' })
     } else {
+      dispatch(getRandomActivity())
       dispatch(signUp(data));
       setModalVisible(true)
     }
@@ -81,18 +78,16 @@ const SignUp: React.FC = () => {
   // }
 
   return (
-    <View style={styles.wrapper}>
+
+    <SafeAreaView >
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
       >
         <View style={styles.container}>
-          <View >
-            <Text style={styles.titleApp} >DO SOMETHING!</Text>
-          </View>
-          <View style={[styles.content, styles.shadow]}>
+          <View style={styles.wrapperContent}>
             <Image
               style={styles.iconLogin}
-              source={require('../../../assets/icon.png')}
+              source={icon}
             />
             <Text style={styles.title}>Sign In to your account</Text>
             <View style={styles.inputs}>
@@ -210,7 +205,9 @@ const SignUp: React.FC = () => {
           </View>
         </View>
       </LinearGradient>
-    </View>
+    </SafeAreaView>
+
+
   );
 };
 

@@ -1,3 +1,4 @@
+//Lib
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 //Types
 import { ButtonType } from '../../types'

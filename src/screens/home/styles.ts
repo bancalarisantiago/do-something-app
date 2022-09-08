@@ -11,17 +11,18 @@ export default StyleSheet.create({
   },
   titleContainer: {
     width: '70%',
-    height: '20%',
     alignItems: 'center',
+    margin: 5,
   },
   title: {
     fontSize: 20,
     color: colors.blue
   },
   btnRefresh: {
-    width: '50%',
-    margin: 10,
+    width: '40%',
+    margin: 15,
     padding: 10,
+    justifyContent: 'space-around',
     backgroundColor: colors.lightBlue,
     borderRadius: 10,
   },
@@ -51,7 +52,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   titleRecently: {
-    width: '50%',
+    margin: 10,
     fontSize: 20,
     fontWeight: '500',
     justifyContent: 'center'
@@ -67,7 +68,6 @@ export default StyleSheet.create({
     width: '25%',
     borderWidth: 1,
     borderColor: colors.lightBlue,
-
   },
   rightLine: {
     width: '25%',

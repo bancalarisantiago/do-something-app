@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TextInput, ScrollView } from 'react-native';
+import { View, Text, Image, TextInput, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -13,10 +13,13 @@ import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
 
+//Assets
+import logo from '../../../assets/icon.png';
 
 const LogIn: React.FC = () => {
 
   const navigation = useNavigation();
+
   const {
     register,
     setValue,
@@ -33,20 +36,20 @@ const LogIn: React.FC = () => {
 
   return (
 
-    <View style={styles.wrapper}>
+    <SafeAreaView >
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
       >
         <View style={styles.container}>
-          <View >
-            <Text style={styles.titleApp} >DO SOMETHING!</Text>
-          </View>
-          <View style={styles.content}>
+          <View style={styles.wrapperContent}>
             <Image
               style={styles.iconLogin}
-              source={require('../../../assets/icon.png')}
+              source={logo}
             />
-            <Text style={styles.title}>Sign In to your account</Text>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>DO-SOMETHING</Text>
+              <Text style={styles.subtitle}>and have fun!</Text>
+            </View>
             <View style={styles.inputs}>
               <Controller
                 control={control}
@@ -90,7 +93,7 @@ const LogIn: React.FC = () => {
           </View>
         </View>
       </LinearGradient>
-    </View>
+    </SafeAreaView >
 
   )
 }

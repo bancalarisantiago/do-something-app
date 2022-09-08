@@ -2,15 +2,13 @@ import { removeSecureItem, storeSecureItem } from '../storage';
 
 export const createTokenProvider = () => {
 
-  const setToken = async (token: string | null) => {
+  const setToken = async (token: string) => {
     if (token) {
       await storeSecureItem('token', token);
-    } else {
-      await removeSecureItem('token');
     }
   };
 
-  const resetToken = async () => {
+  const resetToken = async (token: null) => {
     await removeSecureItem('token');
   }
 

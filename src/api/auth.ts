@@ -1,7 +1,10 @@
 import { getAsyncStorageItem, getSecureItemValue, storeAsyncData, storeSecureItem, } from '../storage';
 import { createTokenProvider } from './tokenProvider';
 
-export const createUserAccount = async (userData: any) => {
+//Types
+import { UserType } from '../types'
+
+export const createUserAccount = async (userData: UserType) => {
   try {
     const { setToken } = createTokenProvider();
 

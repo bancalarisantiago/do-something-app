@@ -26,7 +26,7 @@ const MyActivities: React.FC = () => {
       <SafeAreaView style={styles.container}>
         {myActivities && (
           myActivities.map((activity: ActivityType, index: number) =>
-            <View key={activity.id}>
+            <View key={`MA-${activity.id}`}>
               <Activity key={index} myList={true} {...activity} />
             </View>
           )

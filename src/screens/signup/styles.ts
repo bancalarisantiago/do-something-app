@@ -2,19 +2,18 @@ import { StyleSheet } from 'react-native';
 import colors from '../../globals/colors';
 
 export default StyleSheet.create({
-
   container: {
+    width: '100%',
     height: '100%',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  content: {
-    width: '90%',
-    height: '80%',
+  wrapperContent: {
+    width: '80%',
+    height: '75%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
-    padding: 10,
     borderRadius: 10,
   },
   shadow: {
@@ -32,6 +31,7 @@ export default StyleSheet.create({
     fontSize: 20,
   },
   titleApp: {
+    familyFont: 'Roboto-Black',
     fontSize: 40,
     color: colors.blue
   },

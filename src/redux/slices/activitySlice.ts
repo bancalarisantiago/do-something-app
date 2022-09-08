@@ -1,15 +1,29 @@
+//Lib
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+//Types
+import { ActivityType, FilterType } from '../../types'
 import { RootState, AppThunk } from '../store';
+
+//API
 import { fetchActivityByFilter, fetchRandomActivity, fetchUserActivities } from '../../api/activity';
-import { ActivityType } from '../../types'
 
 type InitialState = {
-  randomActivity: ActivityType | {};
+  randomActivity: ActivityType;
   myActivities: ActivityType[] | never[];
 }
 
 const initialState: InitialState = {
-  randomActivity: {},
+  randomActivity: {
+    id: '',
+    activity: '',
+    type: '',
+    participants: 0,
+    price: 0,
+    link: '',
+    accessibility: 0,
+    myList: false,
+  },
   myActivities: [],
 };
 
@@ -18,7 +32,7 @@ const activitiesSlice = createSlice({
   initialState,
   reducers: {
     addActivity(state, action: PayloadAction<ActivityType>) {
-      const repeatedActivity = state.myActivities.find((activity: any) => activity.id === action.payload.id);
+      const repeatedActivity = state.myActivities.find(({ id }) => id === action.payload.id);
       if (!state.myActivities.length || !repeatedActivity) {
         return { ...state, myActivities: [...state.myActivities, action.payload] };
       } else {
@@ -28,8 +42,8 @@ const activitiesSlice = createSlice({
     getMyActivities(state, action) {
       return { ...state }
     },
-    deleteActivity(state, { payload }) {
-      const newActivityList = state.myActivities.filter((activity: any) => activity.id !== payload)
+    deleteActivity(state, action: PayloadAction<string>) {
+      const newActivityList = state.myActivities.filter(({ id }) => id !== action.payload)
       return { ...state, myActivities: newActivityList };
     },
   },
@@ -50,9 +64,10 @@ export const getRandomActivity = createAsyncThunk(
     return activity
   })
 
+
 export const filterActivitiesBy = createAsyncThunk(
   'activities/filterActivitiesBy',
-  async (filter: any) => {
+  async (filter: FilterType) => {
     const activity = fetchActivityByFilter(filter);
     return activity
   }

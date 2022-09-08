@@ -1,6 +1,9 @@
 import { getAsyncStorageItem } from '../storage';
 import axios from 'axios';
 
+//Types
+import { FilterType } from '../types';
+
 const BASE_URL = 'http://www.boredapi.com/api/activity';
 
 export const fetchUserActivities = async (userEmail: string) => {
@@ -26,10 +29,10 @@ type FilterOptions = {
   value: string | number;
 };
 
-export const fetchActivityByFilter = async (filter: FilterOptions) => {
+export const fetchActivityByFilter = async (filter: FilterType) => {
   try {
-    const { filterOpt, value } = filter;
-    const { data: activity } = await axios.get(`${BASE_URL}?${filterOpt}=${value}`);
+    const { type, value } = filter;
+    const { data: activity } = await axios.get(`${BASE_URL}?${type}=${value}`);
     return activity;
   } catch (e) {
     console.log(e);

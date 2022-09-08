@@ -5,6 +5,7 @@ export default StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center'
   },
   btnDisabled: {
     backgroundColor: 'grey',

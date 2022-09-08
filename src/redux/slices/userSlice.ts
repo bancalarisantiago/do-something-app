@@ -2,24 +2,32 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../store';
 import { createUserAccount } from '../../api/auth';
 
+//Types
+import { UserType } from '../../types';
 
+interface InitialState {
+  user: UserType;
+}
 
-const initialState = {
-  user: {},
+const initialState: InitialState = {
+  user: {
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    age: '',
+  },
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    deleteAccount(state, action: any) {
-      console.log(action.payload)
+    deleteAccount(state, action: PayloadAction) {
       return { ...state };
     },
-
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(signUp.fulfilled, (state, actions) => {
       state.user = actions.payload;
     })
@@ -32,7 +40,7 @@ const userSlice = createSlice({
 
 export const signUp = createAsyncThunk(
   'user/signUp',
-  async (userData: any) => {
+  async (userData: UserType) => {
     const user = createUserAccount(userData);
     return user
   }

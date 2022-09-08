@@ -1,8 +1,9 @@
+//Lib
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 //Components
 import Home from '../screens/home';
@@ -101,7 +102,7 @@ function TabNavigator() {
 const Stack = createNativeStackNavigator();
 
 type NavigationProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   auth: boolean;
 };
 
@@ -121,6 +122,7 @@ const Navigation: React.FC<NavigationProps> = ({ auth }) => {
   }
   useEffect(() => {
     validateTokenStore();
+
   }, [isAuth, loading]);
 
   if (loading) {

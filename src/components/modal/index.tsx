@@ -1,24 +1,18 @@
-
+//Lib
 import { Alert, Modal, Text, Pressable, View } from 'react-native';
 
 //Styles
 import styles from './styles';
 
-type ModalProps = {
-  name: string;
-  label: string;
-  btnLabel: string;
-  modalVisible: boolean;
-  setModalVisible: (arg: boolean) => boolean;
-  callback: () => void;
-}
+//Types
+import { ModalType } from '../../types';
 
-const CustomModal: React.FC<ModalProps> = ({ modalVisible, setModalVisible, name, label, btnLabel, callback }) => {
+const CustomModal: React.FC<ModalType> = ({ modalVisible, setModalVisible, name, label, btnLabel, callback }) => {
 
 
   function callbackBtnModal(cb: () => void) {
-    setModalVisible(!modalVisible)
     cb();
+    setModalVisible(!modalVisible)
   }
 
   return (

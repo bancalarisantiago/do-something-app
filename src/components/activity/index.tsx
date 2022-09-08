@@ -1,6 +1,8 @@
+//Lib
 import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
 import { useAppDispatch } from '../../hooks/useReduxHooks';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 //Types 
 import { ActivityType, IconNames } from '../../types';
 
@@ -13,7 +15,6 @@ import Button from '../button';
 import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
-import React from 'react';
 
 
 const Activity: React.FC<ActivityType> = ({
@@ -57,9 +58,10 @@ const Activity: React.FC<ActivityType> = ({
   }
 
   return (
+
     <SafeAreaView >
-      {id ? (
-        <View style={styles.container} >
+      {id !== undefined ? (
+        <View style={styles.container} key={id}>
           <View style={styles.icon}>
             {handleActivityTypeToIconName(type)}
             <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
@@ -87,12 +89,14 @@ const Activity: React.FC<ActivityType> = ({
               </Button>
             }
           </View>
-        </View>)
-        :
-        <ActivityIndicator
-          size="small"
-          color={colors.blue}
-        />}
+        </View>
+      ) : (
+        <View style={styles.container} key={id}>
+          <ActivityIndicator />
+          <Text>NO RUSULTS</Text>
+          <Text>Try other filter values</Text>
+        </View>
+      )}
     </SafeAreaView>
   )
 }
