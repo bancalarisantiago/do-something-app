@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import colors from '../../globals/colors';
 
 export default StyleSheet.create({
- wrapper: {
+  wrapper: {
     flex: 1,
   },
   container: {
@@ -21,18 +21,19 @@ export default StyleSheet.create({
   },
   title: {
     backgroundColor: 'transparent',
-    fontSize:20,
+    fontSize: 20,
   },
   titleApp: {
-      fontSize: 40,
-      color: colors.blue
+    fontSize: 40,
+    // fontFamily: 'Roboto- Black',
+    color: colors.blue
   },
   divider: {
     width: '30%',
     borderColor: colors.blue,
     borderWidth: 0.5,
   },
-  iconLogin : {
+  iconLogin: {
     position: 'absolute',
     top: -25,
     width: 50,
@@ -54,12 +55,12 @@ export default StyleSheet.create({
     borderColor: 'transparent',
     backgroundColor: colors.blue,
   },
-   btnRegister: {
+  btnRegister: {
     margin: 5,
     padding: 10,
     borderWidth: 1,
     borderColor: colors.blue,
     backgroundColor: 'transparent'
   },
-  
+
 })

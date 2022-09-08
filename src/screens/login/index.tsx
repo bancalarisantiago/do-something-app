@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -16,13 +17,19 @@ import colors from '../../globals/colors';
 const LogIn: React.FC = () => {
 
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    control,
+    setError,
+    reset, formState: { errors, isValid, isSubmitSuccessful }
+  } = useForm({ mode: 'onChange' });
 
+  const onSubmit = async data => {
 
-  function handleLoginCredentials() {
-
-  }
+    console.log(data)
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -40,25 +47,43 @@ const LogIn: React.FC = () => {
             />
             <Text style={styles.title}>Sign In to your account</Text>
             <View style={styles.inputs}>
-              <Input
-                iconName="mail-outline"
-                placeholder="youremail@mail.com"
-                autoComplete="email"
-                iconColor={colors.blue}
-                value={email}
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="youremail@mail.com"
+                    autoComplete="email"
+                    onBlur={onBlur}
+                    onChangeText={(value: string) => onChange(value)}
+                    value={value}
+                    iconColor={colors.blue}
+                    iconName="mail-outline"
+                  />
+                )}
+                name="email"
+                rules={{ required: true }}
               />
-              <Input
-                iconName="lock-closed-outline"
-                placeholder="password"
-                autoComplete="password"
-                iconColor={colors.blue}
-                value={password}
-                secureEntry
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="password"
+                    autoComplete="password"
+                    onBlur={onBlur}
+                    onChangeText={(value: string) => onChange(value)}
+                    value={value}
+                    iconColor={colors.blue}
+                    iconName="lock-closed-outline"
+                    secureEntry
+                  />
+                )}
+                name="password"
+                rules={{ required: true }}
               />
             </View>
             <View style={styles.divider}></View>
             <View style={styles.buttons}>
-              <Button label="login" style={styles.btnLogin} onPress={handleLoginCredentials}></Button>
+              <Button label="login" style={styles.btnLogin} onPress={handleSubmit(onSubmit)}></Button>
               <Button label="sign up" style={styles.btnRegister} onPress={() => navigation.navigate('SignUp')}></Button>
             </View>
           </View>

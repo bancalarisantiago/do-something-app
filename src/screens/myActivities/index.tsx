@@ -5,41 +5,34 @@ import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
 import { ActivityType } from '../../types'
 
 //Actions
-import { getMyActivities } from '../../redux/slice/activitySlice';
+import { getMyActivities } from '../../redux/slices/activitySlice';
 
 //Components 
-import Header from '../../components/header';
 import Activity from '../../components/activity'
-import Button from '../../components/button';
+
 
 //Styles
 import styles from './styles';
 
 const MyActivities: React.FC = () => {
 
+  const [loading, setLoading] = useState(true)
   const dispatch = useAppDispatch();
   const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
 
-  // function getActivities() {
-  //   dispatch(getMyActivities())
-
-  // }
-  useEffect(() => {
-    // dispatch(getMyActivities())
-  }, [])
-
   return (
     <View style={styles.wrapper}>
-      {/* <View>
+      <View>
         <Text>MY ACTIVITIES</Text>
-      </View> */}
-      <View style={styles.activityBox}>
-        {myActivities && (
-          myActivities.map((activity: ActivityType) =>
-            <Activity myList={true} {...activity} />
-          )
-        )}
       </View>
+
+      {myActivities && (
+        myActivities.map((activity: ActivityType, index: number) =>
+          <View style={styles.activityBox} key={activity.id}>
+            <Activity key={index} myList={true} {...activity} />
+          </View>
+        )
+      )}
     </View>
   )
 }

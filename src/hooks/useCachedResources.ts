@@ -3,9 +3,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import customFonts from '../globals/fonts'
 
-export default function useCachedResources(): boolean {
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
-
+export default function useCachedResources() {
+  const [isLoadingComplete, setLoadingComplete] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadResourcesAndDataAsync() {

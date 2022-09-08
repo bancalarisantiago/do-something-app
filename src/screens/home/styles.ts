@@ -36,8 +36,11 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   tableInfo: {},
-  activity: {
-
+  activityBox: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    backgroundColor: 'yellow'
   },
   addedContainer: {
     height: '100%',

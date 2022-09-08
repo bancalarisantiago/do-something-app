@@ -7,8 +7,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  btnDisabled: {
+    backgroundColor: 'grey',
+    opacity: 0.2,
+  },
   label: {
-   
     textTransform: 'uppercase',
     textAlign: 'center',
   },

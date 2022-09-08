@@ -1,5 +1,6 @@
 export type ActivityType = {
   id: string;
+  _key?: number;
   activity: string;
   type: string;
   participants: number;
@@ -12,9 +13,10 @@ export type ActivityType = {
 export type ButtonType = {
   label?: string;
   style?: any;
-  onPress: any;
+  onPress: () => void;
   loading?: boolean;
   children?: any;
+  disabled?: boolean;
 }
 
 export interface IconNames {

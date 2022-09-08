@@ -1,4 +1,4 @@
-import { View, TextInput } from 'react-native';
+import { View, TextInput, TextInputProps } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 //Styles
 import styles from './styles';
@@ -7,24 +7,36 @@ import colors from '../../globals/colors';
 
 
 type Props = {
-  id?: number;
   placeholder: string;
-  iconName?: any;
-  iconColor?: string;
+  iconName: string | any;
+  iconColor: string;
+  iconSize?: number;
   autoComplete?: any;
   secureEntry?: boolean;
-  value: any;
+  value: string;
   maxLength?: number;
-  onChangeText?: any;
+  onChangeText: (str: string) => any;
+  onBlur?: any;
+  style?: any;
+  keyboard?: Readonly<TextInputProps> | string;
 }
 
-
-const Input: React.FC<Props> = ({ placeholder, autoComplete, iconName, iconColor, secureEntry, id, onChangeText, value, maxLength }) => {
+const Input: React.FC<Props> = ({
+  placeholder,
+  autoComplete,
+  iconName,
+  iconColor,
+  iconSize,
+  secureEntry,
+  onChangeText,
+  value,
+  maxLength,
+  keyboard }) => {
   return (
-    <View style={styles.container} key={id}>
+    <View style={styles.container} >
       {iconName && (
         <View style={styles.icon}>
-          <Ionicons name={iconName} size={20} color={iconColor} />
+          <Ionicons name={iconName} size={iconSize ?? 20} color={iconColor} />
         </View>
       )}
       <TextInput
@@ -35,7 +47,7 @@ const Input: React.FC<Props> = ({ placeholder, autoComplete, iconName, iconColor
         value={value}
         onChangeText={onChangeText}
         maxLength={maxLength}
-        keyboardType={placeholder === 'age' ? 'numeric' : 'default'}
+        keyboardType={keyboard ?? 'default'}
       />
     </View>
   )

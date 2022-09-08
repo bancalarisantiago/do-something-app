@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../redux/slice/store';
-import { fetchActivityByFilter, fetchRandomActivity } from '../../api';
+import { RootState, AppThunk } from '../store';
+import { fetchActivityByFilter, fetchRandomActivity, fetchUserActivities } from '../../api/activity';
+import { ActivityType } from '../../types'
+import { getAsyncStorageItem, storeAsyncData } from '../../storage';
 
-const initialState = {
+
+type InitialState = {
+  randomActivity: ActivityType | {};
+  myActivities: ActivityType[] | never[];
+}
+
+
+const initialState: InitialState = {
   randomActivity: {},
   myActivities: [],
-  status: "",
 };
 
 
@@ -13,29 +21,24 @@ const activitiesSlice = createSlice({
   name: 'activities',
   initialState,
   reducers: {
-    addActivity(state, { payload }) {
-      const repeatedActivity = state.myActivities.find((activity: any) => activity.id === payload.id);
-      if (!repeatedActivity || state.myActivities.length === 0) {
-        return {
-          ...state,
-          myActivities: [...state.myActivities, payload]
-        };
+    addActivity(state, action: PayloadAction<ActivityType>) {
+      const repeatedActivity = state.myActivities.find((activity: any) => activity.id === action.payload.id);
+
+      if (!state.myActivities.length || !repeatedActivity) {
+        return { ...state, myActivities: [...state.myActivities, action.payload] };
+      } else {
+        return state
       }
-      return { ...state };
+    },
+    getMyActivities(state, actions) {
+      return { ...state }
     },
     deleteActivity(state, { payload }) {
       const newActivityList = state.myActivities.filter((activity: any) => activity.id !== payload)
       return { ...state, myActivities: newActivityList };
     },
-    getMyActivities(state, action) {
-      return { ...state };
-    },
-    // fetchRandomActivity(state, { payload }) {
-    //   return { ...state, randomActivity: payload };
-    // }
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getRandomActivity.fulfilled, (state, { payload }) => {
       state.randomActivity = payload
     })
@@ -44,7 +47,6 @@ const activitiesSlice = createSlice({
     })
   },
 })
-
 
 export const getRandomActivity = createAsyncThunk(
   'activities/getRandomActivity',
@@ -63,8 +65,8 @@ export const filterActivitiesBy = createAsyncThunk(
 
 export const {
   addActivity,
-  deleteActivity,
   getMyActivities,
+  deleteActivity,
 } = activitiesSlice.actions;
 
 export default activitiesSlice.reducer;

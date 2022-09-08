@@ -5,7 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { ActivityType, IconNames } from '../../types';
 
 //Actions
-import { addActivity, deleteActivity } from '../../redux/slice/activitySlice';
+import { addActivity, deleteActivity } from '../../redux/slices/activitySlice';
 
 //Component
 import Button from '../button';
@@ -26,7 +26,6 @@ const Activity: React.FC<ActivityType> = ({
   myList }) => {
 
   const dispatch = useAppDispatch();
-  // const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
 
   function handleActivityTypeToIconName(type: string) {
 
@@ -59,7 +58,7 @@ const Activity: React.FC<ActivityType> = ({
   return (
     <>
       {id ? (
-        <View style={styles.container}>
+        <View style={styles.container} >
           <View style={styles.content}>
             <View style={styles.icon}>
               {handleActivityTypeToIconName(type)}

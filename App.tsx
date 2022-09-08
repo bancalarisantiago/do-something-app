@@ -1,34 +1,86 @@
-import { useCallback } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Provider as ReduxProvider } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
-import { Provider } from 'react-redux';
+//import { useFonts } from 'expo-font';
+import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+//Providers
+import { persistor, store } from './src/redux/store';
+import { getSecureItemValue } from './src/storage';
+import { PersistGate } from 'redux-persist/integration/react';
+import AuthProvider from './src/context/AuthProvider';
 import Navigation from './src/navigation';
-import store from './src/redux/slice/store';
-//Components
-import Login from './src/screens/logIn'
-import SignUp from './src/screens/signUp'
-import Home from './src/screens/home'
-import MyActivities from './src/screens/myActivities'
+
 //Hooks
 import useCachedResources from './src/hooks/useCachedResources'
+//Globals
+import customFonts from './src/globals/fonts';
 
-export default function App() {
+const LoadingMarkup = () => (
+  <View
+    style={{
+      flex: 1,
+      justifyContent: 'center',
+    }}>
+    <ActivityIndicator size="large" color="#0000ff" />
+  </View>
+);
 
-  const isLoadingComplete = useCachedResources();
 
-  console.log(isLoadingComplete)
+const App: React.FC = () => {
+  const [isAuthUser, setIsAuthUser] = useState(false);
+  const [loading, setLoading] = useState(true)
+
+  async function getUserTokenForAuth() {
+    const token = await getSecureItemValue('token');
+    if (token || token !== undefined) {
+      setIsAuthUser(true)
+    } else {
+      setIsAuthUser(false)
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    getUserTokenForAuth();
+  }, [loading])
+
+
+  //console.log(signIn)
+  // const isLoadingComplete = useCachedResources();
+
+  // const [fontsLoaded] = useFonts({
+  //   'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
+  //   'Roboto-BlackItalic': require('./assets/fonts/Roboto-BlackItalic.ttf'),
+  //   'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf')
+  // });
+
+  // const loading = Font.loadAsync({
+  //   'Roboto- Black': require('./assets/fonts/Roboto-Black.ttf'),
+  // })
+
+  if (loading) {
+    return <View><Text>QUE ONDAAAAAA</Text></View>
+  }
+
+
   return (
-    <Provider store={store}>
-      <Navigation>
-        <View style={styles.container} >
-          <StatusBar style="auto" />
-        </View>
-      </Navigation>
-    </Provider>
+    <AuthProvider>
+      <ReduxProvider store={store}>
+        <PersistGate loading={<LoadingMarkup />} persistor={persistor}>
+          <Navigation auth={isAuthUser} >
+            <View style={styles.container} >
+              <StatusBar style="auto" />
+            </View>
+          </Navigation>
+        </PersistGate>
+      </ReduxProvider>
+    </AuthProvider>
   );
 }
+export default App
 
 const styles = StyleSheet.create({
   container: {

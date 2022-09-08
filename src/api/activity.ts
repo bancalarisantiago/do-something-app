@@ -1,8 +1,16 @@
+import { getAsyncStorageItem } from '../storage';
 import axios from 'axios';
-
 
 const BASE_URL = 'http://www.boredapi.com/api/activity';
 
+export const fetchUserActivities = async (userEmail: string) => {
+  try {
+    const user = await getAsyncStorageItem(userEmail)
+    return user
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const fetchRandomActivity = async () => {
   try {

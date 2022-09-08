@@ -1,50 +1,90 @@
-import { View, Text, Image, NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
-//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useState, useEffect } from 'react';
+import { Text, View, Image, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useForm, Controller } from 'react-hook-form';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react'
-//Component
+import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
+//Provider
+import { useAuth } from '../../context/AuthProvider';
+
+//Storage
+import {
+  removeAllAsyncData
+} from '../../storage'
+import { signUp, deleteAccount } from '../../redux/slices/userSlice';
+
+//Components
 import Button from '../../components/button';
-import Input from '../../components/input'
-//Styles
-import styles from './styles';
+import Input from '../../components/input';
+import CustomModal from '../../components/modal';
+
 //Globals
 import colors from '../../globals/colors';
 
-type Form = {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  age: string;
-}
+//Styles
+import styles from './styles';
 
 
 const SignUp: React.FC = () => {
 
-  const [form, setForm] = useState<Form>({
-    email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    age: '',
-  })
+  const { isAuth, setIsAuth } = useAuth();
 
-  function handleInputOnChange(value: string | number, name: string): void {
+  const navigation = useNavigation()
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state)
 
-    setForm({ ...form, [name]: value })
+  console.log("state", user)
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    control,
+    setError,
+    reset, formState: { errors, isValid, isSubmitSuccessful }
+  } = useForm({ mode: 'onChange' });
+
+
+  useEffect(() => {
+
+  }, [errors]);
+
+  type User = {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    age: string;
   }
 
-  function handleOnSubmit() {
-    console.log(form)
+  const handleCreateAccount = () => {
+    setModalVisible(false)
+    setIsAuth(true);
   }
+
+  const onSubmit = async (data: any) => {
+    //const validateUser = await getAsyncStorageItem('user')
+
+    if (false) {
+      console.log('usuario ya registarado')
+      setError('email', { type: 'custom', message: 'Email already register' })
+    } else {
+      dispatch(signUp(data));
+      setModalVisible(true)
+    }
+  };
+
+  // const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
+
+  //   return console.log(errors)
+  // }
 
   return (
     <View style={styles.wrapper}>
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
       >
-
         <View style={styles.container}>
           <View >
             <Text style={styles.titleApp} >DO SOMETHING!</Text>
@@ -54,62 +94,124 @@ const SignUp: React.FC = () => {
               style={styles.iconLogin}
               source={require('../../../assets/icon.png')}
             />
-
             <Text style={styles.title}>Sign In to your account</Text>
             <View style={styles.inputs}>
-              {/* {inputsForm.map(input => <View key={input.id}><Input {...input} /></View>)} */}
-              <Input
-                placeholder="youremail@mail.com"
-                iconName="person-circle-outline"
-                autoComplete="email"
-                iconColor={colors.blue}
-                value={form.email}
-                onChangeText={(value: string) => handleInputOnChange(value, "email")}
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="youremail@mail.com"
+                    autoComplete="email"
+                    onBlur={onBlur}
+                    onChangeText={(value) => onChange(value)}
+                    value={value}
+                    iconColor={colors.blue}
+                    iconName="mail-outline"
+                  />
+                )}
+                name="email"
+                rules={{ required: true }}
               />
-              <Input
-                placeholder="password"
-                iconName="lock-closed-outline"
-                autoComplete="password"
-                iconColor={colors.blue}
-                value={form.password}
-                onChangeText={(value: string) => handleInputOnChange(value, "password")}
-                secureEntry
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="password"
+                    autoComplete="password"
+                    onBlur={onBlur}
+                    onChangeText={(value) => onChange(value)}
+                    value={value}
+                    iconColor={colors.blue}
+                    iconName="lock-closed-outline"
+                    secureEntry
+                  />
+                )}
+                name="password"
+                rules={{ required: true }}
               />
-              <Input
-                placeholder="First Name"
-                iconName="person-circle-outline"
-                autoComplete="name-given"
-                iconColor={colors.blue}
-                value={form.firstName}
-                onChangeText={(value: string) => handleInputOnChange(value, "firstName")}
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="First Name"
+                    autoComplete="name-given"
+                    onBlur={onBlur}
+                    onChangeText={(value) => onChange(value)}
+                    value={value}
+                    iconColor={colors.blue}
+                    iconName="person-outline"
+                  />
+                )}
+                name="firstName"
+                rules={{ required: true }}
               />
-              <Input
-                placeholder="Last Name"
-                iconName="person-circle-outline"
-                autoComplete="name-family"
-                iconColor={colors.blue}
-                value={form.lastName}
-                onChangeText={(value: string) => handleInputOnChange(value, "lastName")}
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="Last Name"
+                    autoComplete="name-family"
+                    onBlur={onBlur}
+                    onChangeText={(value: string) => onChange(value)}
+                    value={value}
+                    iconColor={colors.blue}
+                    iconName="person-outline"
+                  />
+                )}
+                name="lastName"
+                rules={{ required: true }}
               />
-              <Input
-                placeholder="age"
-                iconName="lock-closed-outline"
-                iconColor={colors.blue}
-                maxLength={3}
-                value={form.age}
-                onChangeText={(value: number) => handleInputOnChange(value, "age")}
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <Input
+                    placeholder="Age"
+                    onBlur={onBlur}
+                    onChangeText={(value: string) => onChange(value)}
+                    value={value}
+                    keyboard="numeric"
+                    maxLength={3}
+                    iconColor={colors.blue}
+                    iconName="man-outline"
+                    iconSize={22}
+                  />
+                )}
+                name="age"
+                rules={{ required: true }}
               />
             </View>
             <View style={styles.divider}></View>
             <View style={styles.buttons}>
-              <Button label="create account" style={styles.btnLogin} onPress={handleOnSubmit}></Button>
-              {/* <Button label="sign up" style={styles.btnRegister} ></Button> */}
+              <Button
+                //style={styles.buttonInner}
+                label="Reset"
+                onPress={() => {
+                  reset();
+                  removeAllAsyncData();
+                  // removeStoreData("bancalarisantiago@gmail.com");
+                }}
+              />
+              <View >
+                <Button
+                  style={styles.btnLogin}
+                  label="create account"
+                  onPress={handleSubmit(onSubmit)}
+                  disabled={!isValid}
+                />
+              </View>
+              <CustomModal
+                name="singup"
+                label="INFO"
+                btnLabel="Go Home"
+                modalVisible={modalVisible}
+                callback={handleCreateAccount}
+                setModalVisible={() => setModalVisible(!modalVisible)} />
             </View>
           </View>
         </View>
       </LinearGradient>
     </View>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;
