@@ -39,7 +39,6 @@ const Settings: React.FC = () => {
 
   return (
     <View style={styles.wrapper}>
-      <Text>SETTINGSSSS</Text>
       {/* <Button style={{ backgroundColor: 'red' }} label="RESET PASSWORD" onPress={() => resetPassword()}></Button> */}
       <Button style={{ backgroundColor: colors.blue, width: '50%', padding: 10, margin: 10 }} label="LOG OUT" onPress={() => logOut()}></Button>
       <Button style={{ backgroundColor: 'red', width: '50%', padding: 10, margin: 10 }} label="DELETE ACCOUNT" onPress={() => deleteAccount()}></Button>
