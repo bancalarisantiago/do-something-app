@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, Image, TextInput, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
-//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAppDispatch } from '../../hooks/useReduxHooks';
+//Provider
+import { useAuth } from '../../context/AuthProvider';
+
+//Actions
+import { logIn } from '../../redux/slices/userSlice';
 
 //Component
 import Button from '../../components/button';
@@ -15,10 +20,13 @@ import colors from '../../globals/colors';
 
 //Assets
 import logo from '../../../assets/icon.png';
+import { store } from '../../redux/store';
 
 const LogIn: React.FC = () => {
 
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const { isAuth, setIsAuth } = useAuth();
 
   const {
     register,
@@ -29,13 +37,32 @@ const LogIn: React.FC = () => {
     reset, formState: { errors, isValid, isSubmitSuccessful }
   } = useForm({ mode: 'onChange' });
 
-  const onSubmit = async data => {
 
-    console.log(data)
+  const errorsInput = {
+    email: errors?.email?.message ? errors.email.message : '',
+    password: errors?.password?.message ? errors.password.message : '',
+
+  }
+  const onSubmit = async (dataUser) => {
+
+    const { user: { user } } = store.getState()
+    // Last validation before log in.
+    //In a real case app I should check the email and password received in our DB .
+    //In this case i am checking on the user saved in the AsyncStore.
+
+    if (user) {
+      if (user.password === dataUser.password && user.email === dataUser.email) {
+        if (logIn()) {
+          setIsAuth(true);
+        }
+      } else {
+        setError('password', { type: 'custom', message: 'Invalid password' });
+      }
+    }
   };
 
-  return (
 
+  return (
     <SafeAreaView >
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
@@ -78,6 +105,7 @@ const LogIn: React.FC = () => {
                     value={value}
                     iconColor={colors.blue}
                     iconName="lock-closed-outline"
+                    errorMessage={errorsInput.password.length > 0 ? errorsInput.password : null}
                     secureEntry
                   />
                 )}

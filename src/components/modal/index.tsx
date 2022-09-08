@@ -1,6 +1,8 @@
 //Lib
 import { Alert, Modal, Text, Pressable, View } from 'react-native';
 
+//Components
+import Button from '../button';
 //Styles
 import styles from './styles';
 
@@ -28,11 +30,11 @@ const CustomModal: React.FC<ModalType> = ({ modalVisible, setModalVisible, name,
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>{label}</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
+            <Button
+              style={styles.button}
               onPress={() => callbackBtnModal(callback)}>
               <Text style={styles.textStyle}>{btnLabel}</Text>
-            </Pressable>
+            </Button>
           </View>
         </View>
       </Modal>

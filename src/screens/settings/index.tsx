@@ -12,25 +12,37 @@ import { useAuth } from '../../context/AuthProvider';
 //Styles
 import styles from './styles';
 
+//Globlas
+import colors from '../../globals/colors';
+
 const Settings: React.FC = () => {
 
   const { setIsAuth } = useAuth();
 
 
-  async function logOut() {
-    removeAllAsyncData();
+  async function deleteAccount() {
+    //The idea is to remove al data user from DB , SecureStorate and AsyncStorage
+    store.dispatch({ type: "RESET" });
     removeSecureItem('token');
-    store.dispatch({ type: "RESET" })
-    setIsAuth(false)
+    setIsAuth(false);
   }
+
+  async function logOut() {
+    removeSecureItem('token');
+    setIsAuth(false);
+  }
+
+  // async function resetPassword() {
+  //   setIsAuth(false);
+  // }
 
 
   return (
     <View style={styles.wrapper}>
       <Text>SETTINGSSSS</Text>
-      <Button style={{ backgroundColor: 'red' }} label="LOG OUT/ CLEAR ALL DATA" onPress={() => logOut()}></Button>
-
-      <Button style={{ backgroundColor: 'red' }} label="DELETE ACCOUNT" onPress={() => store.dispatch({ type: "RESET" })}></Button>
+      {/* <Button style={{ backgroundColor: 'red' }} label="RESET PASSWORD" onPress={() => resetPassword()}></Button> */}
+      <Button style={{ backgroundColor: colors.blue, width: '50%', padding: 10, margin: 10 }} label="LOG OUT" onPress={() => logOut()}></Button>
+      <Button style={{ backgroundColor: 'red', width: '50%', padding: 10, margin: 10 }} label="DELETE ACCOUNT" onPress={() => deleteAccount()}></Button>
     </View>
   )
 }

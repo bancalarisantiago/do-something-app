@@ -4,6 +4,7 @@ import { createUserAccount } from '../../api/auth';
 
 //Types
 import { UserType } from '../../types';
+import { createTokenProvider } from '../../api/tokenProvider';
 
 interface InitialState {
   user: UserType;
@@ -23,7 +24,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    deleteAccount(state, action: PayloadAction) {
+    deleteAccount: (state, action: PayloadAction) => {
       return { ...state };
     },
   },
@@ -31,10 +32,6 @@ const userSlice = createSlice({
     builder.addCase(signUp.fulfilled, (state, actions) => {
       state.user = actions.payload;
     })
-    builder.addCase(getUserFromStore.fulfilled, (state, actions) => {
-      state.user;
-    })
-
   },
 })
 
@@ -46,20 +43,14 @@ export const signUp = createAsyncThunk(
   }
 )
 
-export const getUserFromStore = createAsyncThunk(
-  'user/getUserFromStore',
+export const logIn = createAsyncThunk(
+  'auth/logIn',
   async () => {
-
+    const { setToken } = createTokenProvider();
+    setToken("userTOKEN")
+    return true
   }
 )
-
-// export const logIn = createAsyncThunk(
-//   'auth/logIn',
-//   async (filter: any) => {
-//     const activity = fetchActivityByFilter(filter);
-//     return activity
-//   }
-// )
 
 // export const logOut = createAsyncThunk(
 //   'auth/logOut',

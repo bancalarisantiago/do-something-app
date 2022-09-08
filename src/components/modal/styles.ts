@@ -12,7 +12,7 @@ export default StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
@@ -25,18 +25,14 @@ export default StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    familyFont: 'Roboto-Black',
+    borderRadius: 10,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: colors.turquoise,
+    backgroundColor: colors.turquoise
   },
   textStyle: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
   },

@@ -1,6 +1,6 @@
 //Lib
 import React from 'react';
-
+import { TextInputProps } from 'react-native';
 /* ------- USER --------- */
 
 export type UserType = {
@@ -12,6 +12,22 @@ export type UserType = {
 }
 
 /* ----- COMPONENTS ----- */
+
+export type InputTextType = {
+  placeholder: string;
+  iconName: string | any;
+  iconColor: string;
+  iconSize?: number;
+  autoComplete?: any;
+  secureEntry?: boolean;
+  value: string;
+  errorMessage?: string | null;
+  maxLength?: number;
+  onChangeText: (str: string) => any;
+  onBlur?: any;
+  style?: any;
+  keyboard?: Readonly<TextInputProps> | string;
+}
 
 export type ActivityType = {
   id: string | undefined;
@@ -39,7 +55,7 @@ export type ModalType = {
   label: string;
   btnLabel: string;
   modalVisible: boolean;
-  setModalVisible: (arg: boolean) => boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   callback: () => void;
 }
 

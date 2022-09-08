@@ -1,27 +1,17 @@
-import { View, TextInput, TextInputProps } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+//Types
+import { InputTextType } from '../../types';
+
 //Styles
 import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
 
 
-type Props = {
-  placeholder: string;
-  iconName: string | any;
-  iconColor: string;
-  iconSize?: number;
-  autoComplete?: any;
-  secureEntry?: boolean;
-  value: string;
-  maxLength?: number;
-  onChangeText: (str: string) => any;
-  onBlur?: any;
-  style?: any;
-  keyboard?: Readonly<TextInputProps> | string;
-}
 
-const Input: React.FC<Props> = ({
+
+const Input: React.FC<InputTextType> = ({
   placeholder,
   autoComplete,
   iconName,
@@ -30,6 +20,7 @@ const Input: React.FC<Props> = ({
   secureEntry,
   onChangeText,
   value,
+  errorMessage,
   maxLength,
   keyboard }) => {
   return (
@@ -49,6 +40,20 @@ const Input: React.FC<Props> = ({
         maxLength={maxLength}
         keyboardType={keyboard ?? 'default'}
       />
+      {errorMessage ? (
+        <>
+          <View style={styles.errorMsgBox}>
+            <Text style={styles.error}>{errorMessage}</Text>
+          </View>
+          <View style={styles.errorIcon}>
+            <Ionicons name="close-outline" size={18} color={'red'} />
+          </View>
+        </>
+      ) : (
+        <View style={styles.errorIcon}>
+          <Ionicons name="checkmark-outline" size={18} color={colors.blue} />
+        </View>
+      )}
     </View>
   )
 }

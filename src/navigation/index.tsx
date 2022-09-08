@@ -109,25 +109,6 @@ type NavigationProps = {
 const Navigation: React.FC<NavigationProps> = ({ auth }) => {
 
   const { isAuth, setIsAuth } = useAuth();
-  const [loading, setLoading] = useState(true);
-
-  async function validateTokenStore() {
-    const token = await getSecureItemValue('token');
-    if (token || token !== undefined) {
-      setIsAuth(true)
-    } else {
-      setIsAuth(false)
-    }
-    setLoading(false)
-  }
-  useEffect(() => {
-    validateTokenStore();
-
-  }, [isAuth, loading]);
-
-  if (loading) {
-    return <View><Text>CHEQUEANDO CREDENCIALES</Text></View>
-  }
 
   return (
     <NavigationContainer >

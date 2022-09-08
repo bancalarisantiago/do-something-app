@@ -85,7 +85,7 @@ const Home = () => {
 
   useEffect(() => {
 
-    if (loading && userSession) {
+    if (loading) {
       dispatch(getRandomActivity());
       dispatch(getMyActivities());
       setLoading(false);

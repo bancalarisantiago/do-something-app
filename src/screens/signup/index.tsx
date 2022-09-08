@@ -13,7 +13,7 @@ import { useAuth } from '../../context/AuthProvider';
 
 //Storage
 import { removeAllAsyncData } from '../../storage'
-import { signUp, deleteAccount } from '../../redux/slices/userSlice';
+import { signUp } from '../../redux/slices/userSlice';
 import { getRandomActivity } from '../../redux/slices/activitySlice';
 
 //Components
@@ -29,6 +29,7 @@ import styles from './styles';
 
 //Assets
 import icon from '../../../assets/icon.png';
+import { store } from '../../redux/store';
 
 const SignUp: React.FC = () => {
 
@@ -36,10 +37,10 @@ const SignUp: React.FC = () => {
 
   const navigation = useNavigation()
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state)
+  const userState = useAppSelector((state) => state)
 
-  console.log("state", user)
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+
 
   const {
     register,
@@ -48,37 +49,46 @@ const SignUp: React.FC = () => {
     control,
     setError,
     reset, formState: { errors, isValid, isSubmitSuccessful }
-  } = useForm({ mode: 'onChange' });
+  } = useForm({ mode: 'onChange', reValidateMode: 'onChange' });
 
-  useEffect(() => {
+  // useEffect(() => {
+  // }, [errors]);
 
-  }, [errors]);
+
+  //All validation rules al missing, the only validation is to check that the email is not registered.
+  const errorsInput = {
+    email: errors?.email?.message ? errors.email.message : '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    age: '',
+  }
+
 
   const handleCreateAccount = () => {
     setModalVisible(false)
     setIsAuth(true);
   }
-
-  const onSubmit = async (data: UserType) => {
-    //const validateUser = await getAsyncStorageItem('user')
-
-    if (false) {
-      console.log('usuario ya registarado')
-      setError('email', { type: 'custom', message: 'Email already register' })
-    } else {
-      dispatch(getRandomActivity())
-      dispatch(signUp(data));
-      setModalVisible(true)
+  const onSubmit = async (dataUser: UserType) => {
+    const { user: { user } } = store.getState()
+    if (user) {
+      //Last validation before creating an account.
+      //In a real case app I should check the email received in our DB and find if the email is already taken.
+      //The idea is to create a function verify if the user email is already register in our DB.
+      //We should compare the email received and look it our the DB.
+      //Of course in a real project we should check it in a DB.
+      //In this case i am checking on the user saved in the AsyncStore.
+      if (user.email === dataUser.email) {
+        // return console.log("USUARIO YA REGISTRADO")
+        setError('email', { type: 'custom', message: 'Email is already registered' });
+      } else {
+        dispatch(getRandomActivity())
+        dispatch(signUp(dataUser));
+        setModalVisible(true);
+      }
     }
-  };
-
-  // const onError: SubmitErrorHandler<FormValues> = (errors, e) => {
-
-  //   return console.log(errors)
-  // }
-
+  }
   return (
-
     <SafeAreaView >
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
@@ -102,6 +112,7 @@ const SignUp: React.FC = () => {
                     value={value}
                     iconColor={colors.blue}
                     iconName="mail-outline"
+                    errorMessage={errorsInput.email.length > 0 ? errorsInput.email : null}
                   />
                 )}
                 name="email"
@@ -177,15 +188,6 @@ const SignUp: React.FC = () => {
             </View>
             <View style={styles.divider}></View>
             <View style={styles.buttons}>
-              <Button
-                //style={styles.buttonInner}
-                label="Reset"
-                onPress={() => {
-                  reset();
-                  removeAllAsyncData();
-                  // removeStoreData("bancalarisantiago@gmail.com");
-                }}
-              />
               <View >
                 <Button
                   style={styles.btnLogin}
@@ -196,7 +198,7 @@ const SignUp: React.FC = () => {
               </View>
               <CustomModal
                 name="singup"
-                label="INFO"
+                label="Thanks for joining us!"
                 btnLabel="Go Home"
                 modalVisible={modalVisible}
                 callback={handleCreateAccount}
@@ -206,8 +208,6 @@ const SignUp: React.FC = () => {
         </View>
       </LinearGradient>
     </SafeAreaView>
-
-
   );
 };
 
