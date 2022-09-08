@@ -33,7 +33,7 @@ export default StyleSheet.create({
     backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: colors.turquoise,
   },
   textStyle: {
     color: 'white',

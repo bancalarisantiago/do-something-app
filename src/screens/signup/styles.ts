@@ -2,9 +2,7 @@ import { StyleSheet } from 'react-native';
 import colors from '../../globals/colors';
 
 export default StyleSheet.create({
-  wrapper: {
-    flex: 1,
-  },
+
   container: {
     height: '100%',
     justifyContent: 'space-evenly',
@@ -20,7 +18,7 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   shadow: {
-    shadowColor: '#52006A',
+    shadowColor: '#000',
     elevation: 20,
     shadowOffset: {
       width: 10,
@@ -61,14 +59,16 @@ export default StyleSheet.create({
     margin: 5,
     padding: 10,
     borderWidth: 1,
+    borderRadius: 10,
     borderColor: 'transparent',
-    backgroundColor: colors.blue,
+    backgroundColor: colors.turquoise,
   },
   btnRegister: {
     margin: 5,
     padding: 10,
     borderWidth: 1,
-    borderColor: colors.blue,
+    borderRadius: 10,
+    borderColor: colors.turquoise,
     backgroundColor: 'transparent'
   },
 

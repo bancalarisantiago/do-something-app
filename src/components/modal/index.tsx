@@ -1,11 +1,10 @@
 
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Alert, Modal, Text, Pressable, View } from 'react-native';
+
 //Styles
 import styles from './styles';
 
-
-type Props = {
+type ModalProps = {
   name: string;
   label: string;
   btnLabel: string;
@@ -14,16 +13,13 @@ type Props = {
   callback: () => void;
 }
 
-const CustomModal: React.FC<Props> = ({ modalVisible, setModalVisible, name, label, btnLabel, callback }) => {
+const CustomModal: React.FC<ModalProps> = ({ modalVisible, setModalVisible, name, label, btnLabel, callback }) => {
 
-  const navigation = useNavigation();
 
   function callbackBtnModal(cb: () => void) {
     setModalVisible(!modalVisible)
     cb();
   }
-
-
 
   return (
     <View style={styles.centeredView}>

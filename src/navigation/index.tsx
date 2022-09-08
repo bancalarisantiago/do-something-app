@@ -16,50 +16,84 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../context/AuthProvider';
 import { getSecureItemValue } from '../storage';
 
-
+//Globals
+import colors from '../globals/colors'
 
 const Tab = createBottomTabNavigator();
+
+const iconStyle = {
+
+}
 
 function TabNavigator() {
   return (
     <Tab.Navigator >
-      <Tab.Screen name="Home" component={Home} options={{
-        title: 'HOME',
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: '300',
-        },
-        tabBarIcon: () => <Ionicons name="home-outline" size={25} />
-      }
-      } />
-      <Tab.Screen name="My Activities" component={MyActivities}
+      <Tab.Screen name="Home" component={Home}
         options={{
-          title: 'ACTIVITIES',
+          title: 'Home',
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: colors.blue,
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#ffffff',
           headerTitleStyle: {
             fontWeight: '300',
           },
-          tabBarIcon: () => <Ionicons name="star-outline" size={25} />
+          tabBarStyle: { height: 55 },
+          tabBarActiveTintColor: colors.blue,
+          tabBarActiveBackgroundColor: 'white',
+          tabBarIcon: ({ focused }) => <Ionicons style={{
+            color: focused ? colors.blue : 'black',
+          }} name="home-outline" size={25} />,
+          tabBarLabel: ({ focused }) => focused ? <Text style={{
+            fontWeight: '400', color: colors.blue
+          }}>Home</Text>
+            : null,
         }
         } />
-      <Tab.Screen name="Settings" component={Settings} options={{
-        title: 'SETTINGS',
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: '300',
-        },
-        tabBarIcon: () => <Ionicons name="settings-outline" size={25} />
-      }
-      } />
+      <Tab.Screen name="My Activities" component={MyActivities}
+        options={{
+          title: 'My Activities',
+          headerStyle: {
+            backgroundColor: colors.blue,
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            fontWeight: '300',
+          },
+          tabBarStyle: { height: 55 },
+          tabBarActiveTintColor: colors.blue,
+          tabBarActiveBackgroundColor: 'white',
+          tabBarIcon: ({ focused }) => <Ionicons style={{
+            color: focused ? colors.blue : 'black',
+          }} name="star-outline" size={25} />,
+          tabBarLabel: ({ focused }) => focused ? <Text style={{
+            fontWeight: '400', color: colors.blue
+          }}>Activities</Text>
+            : null,
+        }
+        } />
+      <Tab.Screen name="Settings" component={Settings}
+        options={{
+          title: 'Settings',
+          headerStyle: {
+            backgroundColor: colors.blue,
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            fontWeight: '300',
+          },
+          tabBarStyle: { height: 55 },
+          tabBarActiveTintColor: colors.blue,
+          tabBarActiveBackgroundColor: 'white',
+          tabBarIcon: ({ focused }) => <Ionicons style={{
+            color: focused ? colors.blue : 'black',
+          }} name="settings-outline" size={25} />,
+          tabBarLabel: ({ focused }) => focused ? <Text style={{
+            fontWeight: '400', color: colors.blue
+          }}>Settings</Text>
+            : null,
+        }
+        } />
     </Tab.Navigator>
   );
 };

@@ -23,17 +23,27 @@ const userSlice = createSlice({
     builder.addCase(signUp.fulfilled, (state, actions) => {
       state.user = actions.payload;
     })
+    builder.addCase(getUserFromStore.fulfilled, (state, actions) => {
+      state.user;
+    })
+
   },
 })
 
 export const signUp = createAsyncThunk(
-  'auth/signUp',
+  'user/signUp',
   async (userData: any) => {
     const user = createUserAccount(userData);
     return user
   }
 )
 
+export const getUserFromStore = createAsyncThunk(
+  'user/getUserFromStore',
+  async () => {
+
+  }
+)
 
 // export const logIn = createAsyncThunk(
 //   'auth/logIn',

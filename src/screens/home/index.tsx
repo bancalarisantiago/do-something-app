@@ -105,9 +105,8 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-
         <Text style={styles.title}>Welcome {userSession?.firstName}</Text>
-        <Text style={styles.title}>age{userSession?.age}</Text>
+        <Text style={styles.title}>Age: {userSession?.age}</Text>
         <Text style={styles.subtitle}>It's time to do something</Text>
         <Text style={styles.subtitle}>Tap the button and find a new activity</Text>
         <Text>20</Text>
@@ -142,39 +141,41 @@ const Home = () => {
           </View>
         )}
       </View>
-      {/* <View style={styles.tableInfo}>
-        <Text>Description</Text>
-        <Text>Type</Text>
-        <Text>Participants</Text>
-      </View> */}
       {randomActivity && (
-        <Activity
-          // @ts-ignore
-          id={randomActivity.key}
-          _key={0}
-          // @ts-ignore
-          activity={randomActivity.activity}
-          // @ts-ignore
-          type={randomActivity.type}
-          // @ts-ignore
-          participants={randomActivity.participants}
-          // @ts-ignore
-          price={randomActivity.price}
-          // @ts-ignore
-          link={randomActivity.link}
-          // @ts-ignore
-          accessibility={randomActivity.accessibility}
-        />)
+        <View>
+          <Activity
+            // @ts-ignore
+            id={randomActivity.key}
+            _key={0}
+            activity={randomActivity.activity}
+            // @ts-ignore
+            type={randomActivity.type}
+            // @ts-ignore
+            participants={randomActivity.participants}
+            // @ts-ignore
+            price={randomActivity.price}
+            // @ts-ignore
+            link={randomActivity.link}
+            // @ts-ignore
+            accessibility={randomActivity.accessibility}
+          />
+        </View>
+      )
       }
       <View style={styles.addedContainer}>
-        <Text>Recently Added</Text>
-        {/* {myActivities.length > 0 && (
+        <View style={styles.divider}>
+          <View style={styles.leftLine}></View>
+          <Text style={styles.titleRecently}>Recently Added</Text>
+          <View style={styles.rightLine}></View>
+        </View>
+        {myActivities.length > 0 ? (
           myActivities.slice(myActivities.length - 2, myActivities.length).reverse().map((activity: any, index: number) =>
-            <View style={styles.activityBox} key={activity.id}>
+            <View key={activity.id}>
               <Activity myList={true} {...activity} />
             </View>
           )
-        )} */}
+        ) : <Text>ADD YOUR FIRST ACTIVITY</Text>
+        }
       </View>
     </View>
   )

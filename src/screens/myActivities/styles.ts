@@ -3,16 +3,18 @@ import fonts from '../../globals/fonts'
 import colors from '../../globals/colors'
 
 export default StyleSheet.create({
-  wrapper: {
 
+  container: {
     width: '100%',
     height: '100%',
-    alignItems: 'center',
-    backgroundColor: 'blue',
+    alignItems: 'center'
+  },
+  scrollView: {
+    width: '100%',
   },
   activityBox: {
-    flex: 1,
     width: '100%',
+    height: 200,
     alignItems: 'center',
     backgroundColor: 'yellow'
   }

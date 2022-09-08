@@ -2,20 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../store';
 import { fetchActivityByFilter, fetchRandomActivity, fetchUserActivities } from '../../api/activity';
 import { ActivityType } from '../../types'
-import { getAsyncStorageItem, storeAsyncData } from '../../storage';
-
 
 type InitialState = {
   randomActivity: ActivityType | {};
   myActivities: ActivityType[] | never[];
 }
 
-
 const initialState: InitialState = {
   randomActivity: {},
   myActivities: [],
 };
-
 
 const activitiesSlice = createSlice({
   name: 'activities',
@@ -23,14 +19,13 @@ const activitiesSlice = createSlice({
   reducers: {
     addActivity(state, action: PayloadAction<ActivityType>) {
       const repeatedActivity = state.myActivities.find((activity: any) => activity.id === action.payload.id);
-
       if (!state.myActivities.length || !repeatedActivity) {
         return { ...state, myActivities: [...state.myActivities, action.payload] };
       } else {
         return state
       }
     },
-    getMyActivities(state, actions) {
+    getMyActivities(state, action) {
       return { ...state }
     },
     deleteActivity(state, { payload }) {

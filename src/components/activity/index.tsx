@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks';
+import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
+import { useAppDispatch } from '../../hooks/useReduxHooks';
 import Ionicons from '@expo/vector-icons/Ionicons';
 //Types 
 import { ActivityType, IconNames } from '../../types';
@@ -7,12 +7,13 @@ import { ActivityType, IconNames } from '../../types';
 //Actions
 import { addActivity, deleteActivity } from '../../redux/slices/activitySlice';
 
-//Component
+//Components
 import Button from '../button';
 //Styles
 import styles from './styles';
 //Globals
 import colors from '../../globals/colors';
+import React from 'react';
 
 
 const Activity: React.FC<ActivityType> = ({
@@ -56,39 +57,35 @@ const Activity: React.FC<ActivityType> = ({
   }
 
   return (
-    <>
+    <SafeAreaView >
       {id ? (
         <View style={styles.container} >
-          <View style={styles.content}>
-            <View style={styles.icon}>
-              {handleActivityTypeToIconName(type)}
-              <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
-            </View>
-
-            <View style={styles.description}>
-              <Text style={styles.type}>{activity}</Text>
-              <Text>Participants: {participants}</Text>
-            </View>
-            <View style={styles.btnActivity}>
-              {myList ?
-                <Button onPress={() => dispatch(deleteActivity(id))} >
-                  <Ionicons name="trash-outline" size={25} />
-                </Button>
-                :
-                <Button onPress={() => dispatch(addActivity({
-                  id,
-                  activity,
-                  type,
-                  participants,
-                  price,
-                  link,
-                  accessibility,
-                }))}>
-                  <Ionicons name="add-outline" size={30}></Ionicons>
-                </Button>
-              }
-            </View>
-
+          <View style={styles.icon}>
+            {handleActivityTypeToIconName(type)}
+            <Text style={styles.iconLabel}>{capitalizeFirstLetter(type)}</Text>
+          </View>
+          <View style={styles.description}>
+            <Text style={styles.type}>{activity}</Text>
+            <Text>Participants: <Text style={styles.number}>{participants}</Text></Text>
+          </View>
+          <View style={styles.btnActivity}>
+            {myList ?
+              <Button onPress={() => dispatch(deleteActivity(id))} >
+                <Ionicons name="trash-outline" size={25} />
+              </Button>
+              :
+              <Button onPress={() => dispatch(addActivity({
+                id,
+                activity,
+                type,
+                participants,
+                price,
+                link,
+                accessibility,
+              }))}>
+                <Ionicons name="add-outline" size={30}></Ionicons>
+              </Button>
+            }
           </View>
         </View>)
         :
@@ -96,7 +93,7 @@ const Activity: React.FC<ActivityType> = ({
           size="small"
           color={colors.blue}
         />}
-    </>
+    </SafeAreaView>
   )
 }
 

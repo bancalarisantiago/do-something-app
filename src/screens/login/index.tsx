@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TextInput, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 //import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -32,6 +32,7 @@ const LogIn: React.FC = () => {
   };
 
   return (
+
     <View style={styles.wrapper}>
       <LinearGradient
         colors={[colors.blue, colors.turquoise]}
@@ -90,6 +91,7 @@ const LogIn: React.FC = () => {
         </View>
       </LinearGradient>
     </View>
+
   )
 }
 

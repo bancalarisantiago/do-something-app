@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 //Provider
 import { removeAllAsyncData, removeSecureItem } from '../../storage';
-import { persistor } from '../../redux/store'
+import { persistor, store } from '../../redux/store'
 
 //Components 
 import Button from '../../components/button';
@@ -14,14 +14,13 @@ import styles from './styles';
 
 const Settings: React.FC = () => {
 
-  const { isAuth, setIsAuth } = useAuth();
-  const navigation = useNavigation();
+  const { setIsAuth } = useAuth();
+
 
   async function logOut() {
     removeAllAsyncData();
     removeSecureItem('token');
-    await persistor.purge();
-
+    store.dispatch({ type: "RESET" })
     setIsAuth(false)
   }
 
@@ -30,6 +29,8 @@ const Settings: React.FC = () => {
     <View style={styles.wrapper}>
       <Text>SETTINGSSSS</Text>
       <Button style={{ backgroundColor: 'red' }} label="LOG OUT/ CLEAR ALL DATA" onPress={() => logOut()}></Button>
+
+      <Button style={{ backgroundColor: 'red' }} label="DELETE ACCOUNT" onPress={() => store.dispatch({ type: "RESET" })}></Button>
     </View>
   )
 }

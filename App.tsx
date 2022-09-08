@@ -12,7 +12,8 @@ import { getSecureItemValue } from './src/storage';
 import { PersistGate } from 'redux-persist/integration/react';
 import AuthProvider from './src/context/AuthProvider';
 import Navigation from './src/navigation';
-
+//Actions
+import { getUserFromStore } from './src/redux/slices/userSlice';
 //Hooks
 import useCachedResources from './src/hooks/useCachedResources'
 //Globals
@@ -43,8 +44,14 @@ const App: React.FC = () => {
     setLoading(false);
   }
 
+  async function fetchFromStore() {
+    //const user = store.dispatch(getUserFromStore())
+    const user = store.getState()
+    console.log("userapp", user);
+  }
   useEffect(() => {
     getUserTokenForAuth();
+    fetchFromStore();
   }, [loading])
 
 
@@ -69,7 +76,7 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <ReduxProvider store={store}>
-        <PersistGate loading={<LoadingMarkup />} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <Navigation auth={isAuthUser} >
             <View style={styles.container} >
               <StatusBar style="auto" />

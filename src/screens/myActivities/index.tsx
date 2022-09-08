@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native';
-import { useEffect, useState } from 'react';
+import { View, SafeAreaView, ScrollView } from 'react-native';
+import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/useReduxHooks'
 //Types
 import { ActivityType } from '../../types'
@@ -21,19 +21,19 @@ const MyActivities: React.FC = () => {
   const myActivities = useAppSelector(({ activity: { myActivities } }) => myActivities)
 
   return (
-    <View style={styles.wrapper}>
-      <View>
-        <Text>MY ACTIVITIES</Text>
-      </View>
 
-      {myActivities && (
-        myActivities.map((activity: ActivityType, index: number) =>
-          <View style={styles.activityBox} key={activity.id}>
-            <Activity key={index} myList={true} {...activity} />
-          </View>
-        )
-      )}
-    </View>
+    <ScrollView style={styles.scrollView}>
+      <SafeAreaView style={styles.container}>
+        {myActivities && (
+          myActivities.map((activity: ActivityType, index: number) =>
+            <View key={activity.id}>
+              <Activity key={index} myList={true} {...activity} />
+            </View>
+          )
+        )}
+      </SafeAreaView>
+    </ScrollView>
+
   )
 }
 

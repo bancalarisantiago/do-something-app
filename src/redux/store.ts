@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { configureStore, Action, ThunkAction } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
+import { persistReducer, persistStore, PersistConfig } from 'redux-persist';
 import activityReducer from './slices/activitySlice';
 import userReducer from './slices/userSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,11 +18,17 @@ const activityPersistConfig = {
   blackList: ['randomActivity']
 }
 
-const rootReducers = combineReducers({
+const appReducers = combineReducers({
   user: persistReducer(userPersistConfig, userReducer),
   activity: persistReducer(activityPersistConfig, activityReducer),
 })
 
+const rootReducers = (state, action) => {
+  if (action.type === "RESET") {
+    state = undefined;
+  }
+  return appReducers(state, action)
+}
 const sagaMiddleware = createSagaMiddleware()
 
 

@@ -57,8 +57,6 @@ export async function removeAllAsyncData() {
   } catch (e) {
     console.log(e)
   }
-
-
 }
 
 export async function removeStoreData(key: string) {
