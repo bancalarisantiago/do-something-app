@@ -105,7 +105,7 @@ const LogIn: React.FC = () => {
                     value={value}
                     iconColor={colors.blue}
                     iconName="lock-closed-outline"
-                    //errorMessage={errorsInput?.password?.length > 0 ? errorsInput.password : null}
+                    errorMessage={errorsInput?.password?.length > 0 ? errorsInput.password : null}
                     secureEntry
                   />
                 )}
