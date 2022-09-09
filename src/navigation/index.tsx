@@ -9,8 +9,8 @@ import { ReactNode, useEffect, useState } from 'react';
 import Home from '../screens/home';
 import MyActivities from '../screens/myActivities';
 import Settings from '../screens/settings';
-import LogIn from '../screens/logIn';
-import SignUp from '../screens/signUp';
+import LogIn from '../screens/login';
+import SignUp from '../screens/signup';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 //Provider

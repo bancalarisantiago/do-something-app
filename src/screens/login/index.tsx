@@ -25,7 +25,7 @@ const LogIn: React.FC = () => {
 
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const { isAuth, setIsAuth } = useAuth();
+  //const { isAuth, setIsAuth } = useAuth();
 
   const {
     register,
@@ -53,7 +53,7 @@ const LogIn: React.FC = () => {
     if (user) {
       if (user.password === dataUser.password && user.email === dataUser.email) {
         if (logIn()) {
-          setIsAuth(true);
+          // setIsAuth(true);
         }
       } else {
         setError('password', { type: 'custom', message: 'Invalid password' });
@@ -105,7 +105,7 @@ const LogIn: React.FC = () => {
                     value={value}
                     iconColor={colors.blue}
                     iconName="lock-closed-outline"
-                    errorMessage={errorsInput?.password?.length > 0 ? errorsInput.password : null}
+                    //errorMessage={errorsInput?.password?.length > 0 ? errorsInput.password : null}
                     secureEntry
                   />
                 )}
