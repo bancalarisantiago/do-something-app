@@ -25,6 +25,7 @@ const LogIn: React.FC = () => {
 
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+
   const { isAuth, setIsAuth } = useAuth();
 
   const {
