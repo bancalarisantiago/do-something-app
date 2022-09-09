@@ -19,7 +19,6 @@ import styles from './styles';
 import colors from '../../globals/colors';
 
 //Assets
-import logo from '../../../assets/icon.png';
 import { store } from '../../redux/store';
 
 const LogIn: React.FC = () => {
@@ -36,6 +35,7 @@ const LogIn: React.FC = () => {
     setError,
     reset, formState: { errors, isValid, isSubmitSuccessful }
   } = useForm({ mode: 'onChange' });
+
 
 
   const errorsInput = {
@@ -71,7 +71,7 @@ const LogIn: React.FC = () => {
           <View style={styles.wrapperContent}>
             <Image
               style={styles.iconLogin}
-              source={logo}
+              source={require('../../../assets/icon.png')}
             />
             <View style={styles.titleContainer}>
               <Text style={styles.title}>DO-SOMETHING</Text>
@@ -105,7 +105,7 @@ const LogIn: React.FC = () => {
                     value={value}
                     iconColor={colors.blue}
                     iconName="lock-closed-outline"
-                    errorMessage={errorsInput.password.length > 0 ? errorsInput.password : null}
+                    errorMessage={errorsInput?.password?.length > 0 ? errorsInput.password : null}
                     secureEntry
                   />
                 )}

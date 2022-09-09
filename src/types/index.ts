@@ -21,7 +21,7 @@ export type InputTextType = {
   autoComplete?: any;
   secureEntry?: boolean;
   value: string;
-  errorMessage?: string | null;
+  errorMessage?: string | null | {};
   maxLength?: number;
   onChangeText: (str: string) => any;
   onBlur?: any;
