@@ -9,7 +9,7 @@ import {
 //Types
 import { ContextType } from '../types';
 
-const AuthContext = createContext<ContextType>();
+const AuthContext = createContext<ContextType | undefined>(undefined);
 
 type AuthProviderType = {
   children: ReactNode;

@@ -28,7 +28,6 @@ import colors from '../../globals/colors';
 import styles from './styles';
 
 //Assets
-import icon from '../../../assets/icon.png';
 import { store } from '../../redux/store';
 
 const SignUp: React.FC = () => {
@@ -97,7 +96,7 @@ const SignUp: React.FC = () => {
           <View style={styles.wrapperContent}>
             <Image
               style={styles.iconLogin}
-              source={icon}
+              source={require('../../../assets/icon.png')}
             />
             <Text style={styles.title}>Sign In to your account</Text>
             <View style={styles.inputs}>
@@ -112,7 +111,7 @@ const SignUp: React.FC = () => {
                     value={value}
                     iconColor={colors.blue}
                     iconName="mail-outline"
-                    errorMessage={errorsInput.email.length > 0 ? errorsInput.email : null}
+                    errorMessage={errorsInput?.email?.length > 0 ? errorsInput.email : null}
                   />
                 )}
                 name="email"
