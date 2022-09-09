@@ -68,7 +68,7 @@ const SignUp: React.FC = () => {
     setModalVisible(false)
     setIsAuth(true);
   }
-  const onSubmit = async (dataUser: UserType) => {
+  const onSubmit = async (dataUser: any) => {
     const { user: { user } } = store.getState()
     if (user) {
       //Last validation before creating an account.
