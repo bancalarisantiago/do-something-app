@@ -53,7 +53,7 @@ const LogIn: React.FC = () => {
 
     if (user) {
       if (user.password === dataUser.password && user.email === dataUser.email) {
-        if (logIn()) {
+        if (dispatch(logIn())) {
           setIsAuth(true);
         }
       } else {
