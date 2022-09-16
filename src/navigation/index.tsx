@@ -110,6 +110,13 @@ const Navigation: React.FC<NavigationProps> = ({ auth }) => {
 
   const { isAuth, setIsAuth } = useAuth();
 
+
+  useEffect(() => {
+    if (auth || isAuth) {
+      setIsAuth(true)
+    }
+  }, [])
+
   return (
     <NavigationContainer >
       <Stack.Navigator >
